@@ -1,0 +1,28 @@
+
+.logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+nav button {
+    background-color: transparent;
+    border: 1px solid lightgray;
+    padding: 6px;
+    padding-inline: 8px;
+    border-radius: 45px;
+    color: white;
+    font-weight: 300;
+    font-family: Inter;
+}
+
+header {
+    display: flex;
+    margin: 4px;
+    background: -webkit-linear-gradient(220deg, #ec38bc, #7303c0, #3420b5);
+    background: linear-gradient(220deg, #ec38bc, #7303c0, #3420b5);
+    color: white;
+    padding: 20px;
+    justify-content: space-between;
+    border-radius: 100px;
+    align-items: center;
+}

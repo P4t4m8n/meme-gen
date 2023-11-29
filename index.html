@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="styles\style.css">
     <title>Document</title>
 </head>
 
@@ -39,30 +39,32 @@
                 </div>
 
                 <div class="txt-control">
-                    <button onclick="onAddLine()">Add Line</button>
                     <section class="txt-btn">
-                        <div class="up-down-btn">
-                            <button onclick="onLineMove(true)">up</button>
-                            <button onclick="onLineMove(false)">down</button>
-                        </div>
-
+                        <button onclick="onAddLine()">Add Line</button>
+                        <button onclick="onLineMove(true)">up</button>
+                        <button onclick="onLineMove(false)">down</button>
                         <button>delete</button>
                     </section>
 
                     <section class="txt-chg">
-                        <label>
-                            <span data-trans="minRate">Font Size:</span>
-                            <input type="range" min="1" max="100" value="20" title="20"
-                                oninput="this.title=this.value; onSetFontSize( +this.value)" />
-                        </label>
-                        <button>left</button>
-                        <button>center</button>
-                        <button>right</button>
-                        <button>effect</button>
-                        <form class="change-color">
-                            <input oninput="onSetColor(this)" type="color" id="color" name="color" value="#000000" />
+                        <div class="Scalar ">
+                            <label>
+                                <span data-trans="minRate">Font Size:</span>
+                                <input type="range" min="1" max="100" value="20" title="20"
+                                    oninput="this.title=this.value; onSetFontSize( +this.value)" />
+                            </label>
+                            <form class="change-color">
+                                <input oninput="onSetColor(this)" type="color" id="color" name="color"
+                                    value="#000000" />
 
-                        </form>
+                            </form>
+                        </div>
+                        <div>
+                            <button>left</button>
+                            <button>center</button>
+                            <button>right</button>
+                            <button>effect</button>
+                        </div>
                     </section>
                     <section class="add-imoji">
 
