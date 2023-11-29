@@ -1,11 +1,10 @@
 'use strcit'
 
 function onInit() {
-    console.log('hi')
-
     renderGallery()
-    // renderMeme()
 }
+
+//page management
 
 function OnChangePage(btn) {
 

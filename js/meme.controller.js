@@ -2,9 +2,10 @@
 
 var gElCanvas = document.querySelector('canvas')
 var gCtx = gElCanvas.getContext('2d')
+var gLineIdx = 1
 
 
-
+//rendering func
 function renderMeme() {
     const imgUrl = getCurrImg().url
     const imgContent = getMeme().lines
@@ -20,6 +21,18 @@ function renderMeme() {
     renderLines()
 }
 
+function renderLines() {
+    const lines = document.querySelectorAll('.meme-txt')
+    const memeLines = getMeme().lines
+
+    for (var i = 0; i < memeLines.length; i++) {
+        console.log(lines[i].value)
+        console.log(memeLines[i].txt)
+        lines[i].value = memeLines[i].txt
+    }
+}
+
+//txt manger
 function drawText(txtInfo, x, y) {
 
     var memeTxt = txtInfo.txt
@@ -30,18 +43,24 @@ function drawText(txtInfo, x, y) {
     gCtx.fillText(memeTxt, x, y)
 }
 
-function renderLines() {
-    const lines = document.querySelectorAll('.meme-txt')
-    const memeLines = getMeme().lines
+function onAddLine() {
 
-    for (var i = 0; i < memeLines.length; i++) {
-        lines[i].value = memeLines[i].txt
-    }
+    var lineStr = ` <label>
+                    <input class="meme-txt" type="text" name="meme-txt" value="enter txt" data-cell-idx="${gLineIdx}"
+                    oninput="onSetLineTxt(this)" />
+                    </label>`
+
+    var tempInnerHtml = document.querySelector('.txt-boxs').innerHTML + lineStr
+    document.querySelector('.txt-boxs').innerHTML = tempInnerHtml
+    addLine()
+    gLineIdx++
 }
 
 function onSetLineTxt(el) {
     const txt = el.value
-    setLineTxt(txt)
+    const idx = el.dataset.cellIdx
+    console.log(idx)
+    setLineTxt(txt, idx)
     renderMeme()
 }
 
@@ -49,8 +68,6 @@ function onSetColor(el) {
     setColor(el.value)
     renderMeme()
 }
-
-//txt manger
 
 function onSetFontSize(size) {
     setFontSize(size)
@@ -64,7 +81,6 @@ function downloadMeme(elLink) {
     const imgContent = gElCanvas.toDataURL() // image/jpeg the default format
     elLink.href = imgContent
 }
-
 
 //img upload
 

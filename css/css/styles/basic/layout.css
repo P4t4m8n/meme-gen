@@ -2,10 +2,12 @@
     box-sizing: border-box;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+.galary{
+
+}
+
+.img{
+    width: 100%;
 }
 
 .main-body-meme {
@@ -20,4 +22,10 @@ body {
 
 .hidden {
     display: none;
+}
+
+canvas {
+    width: 400px;
+    height: 400px;
+    outline: 1px solid darkgray
 }

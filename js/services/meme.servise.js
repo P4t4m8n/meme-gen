@@ -5,6 +5,7 @@ const STORAGE_KEY_MEME = 'memDB'
 
 var gImgs
 var gcurrImg
+var gCurrPageIdx = 0
 
 
 var gMeme = {
@@ -27,7 +28,9 @@ _createImges()
 // function getImges() {
 //     return gImgs.map(img => img.url)
 // }
-
+function addLine(txt = 'enter meme', size = 20, color = 'red') {
+    gMeme.lines.push({ txt, size, color })
+}
 //getters
 function getImgs() {
     return gImgs
@@ -46,8 +49,9 @@ function getMeme() {
 
 //setters
 
-function setLineTxt(txt) {
-    gMeme.lines[0].txt = txt
+function setLineTxt(txt, lineIdx) {
+
+    gMeme.lines[lineIdx].txt = txt
 }
 
 function setImg(imgId) {

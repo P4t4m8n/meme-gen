@@ -10,70 +10,75 @@
 
 
 <body onload="onInit()">
-    <header>
-        <div>LOGO</div>
-        <nav>
-            <button onclick="OnChangePage(this)">Galary</button>
-            <button onclick="OnChangePage(this)">Memes</button>
-            <button onclick="onAbout(this)">About</button>
-        </nav>
-    </header>
+    <div class="main-page">
+        <header>
+            <div class="logo">LOGO</div>
+            <nav>
+                <button onclick="OnChangePage(this)">Galary</button>
+                <button onclick="OnChangePage(this)">Memes</button>
+                <button onclick="onAbout(this)">About</button>
+            </nav>
+        </header>
 
-    <section class="galary">
-        <div class="container"></div>
+        <section class="galary">
+            <div class="container"></div>
 
-    </section>
+        </section>
 
-    <section class=" main-body-meme hidden">
-        <div>
-            <canvas id="my-canvas" width="400" height="400" style="outline: 1px solid darkgray"></canvas>
-        </div>
-
-        <div class="img-control-panel">
-
-            <label>
-                <input class="meme-txt" type="text" name="meme-txt" value="enter txt" oninput="onSetLineTxt(this)" />
-            </label>
-
-            <div class="txt-control">
-                <section class="txt-btn">
-                    <button>updown</button>
-                    <button>add</button>
-                    <button>delete</button>
-                </section>
-
-                <section class="txt-chg">
-                    <label>
-                        <span data-trans="minRate">Font Size:</span>
-                        <input type="range" min="1" max="100" value="20" title="20"
-                            oninput="this.title=this.value; onSetFontSize( +this.value)" />
-                    </label>
-                    <button>left</button>
-                    <button>center</button>
-                    <button>right</button>
-                    <button>effect</button>
-                    <form class="change-color">
-                        <input oninput="onSetColor(this)" type="color" id="color" name="color" value="#000000" />
-
-                    </form>
-                </section>
-                <section class="add-imoji">
-
-                </section>
-
+        <section class=" main-body-meme hidden">
+            <div>
+                <canvas id="my-canvas"></canvas>
             </div>
 
-            <section file-manger>
-                <button>save</button>
-                <div class="download">
-                    <a href="#" class="btn" onclick="downloadMeme(this)" download="my-img.jpg">download</a>
+            <div class="img-control-panel">
+                <div class="txt-boxs">
+                    <label>
+                        <input class="meme-txt" type="text" name="meme-txt" value="enter txt" data-cell-idx="0"
+                            oninput="onSetLineTxt(this)" />
+                    </label>
                 </div>
-                <button>share</button>
-            </section>
+                <button onclick="onAddLine()">Add Line</button>
+
+                <div class="txt-control">
+                    <section class="txt-btn">
+                        <button>updown</button>
+                        <button>add</button>
+                        <button>delete</button>
+                    </section>
+
+                    <section class="txt-chg">
+                        <label>
+                            <span data-trans="minRate">Font Size:</span>
+                            <input type="range" min="1" max="100" value="20" title="20"
+                                oninput="this.title=this.value; onSetFontSize( +this.value)" />
+                        </label>
+                        <button>left</button>
+                        <button>center</button>
+                        <button>right</button>
+                        <button>effect</button>
+                        <form class="change-color">
+                            <input oninput="onSetColor(this)" type="color" id="color" name="color" value="#000000" />
+
+                        </form>
+                    </section>
+                    <section class="add-imoji">
+
+                    </section>
+
+                </div>
+
+                <section file-manger>
+                    <button>save</button>
+                    <div class="download">
+                        <a href="#" class="btn" onclick="downloadMeme(this)" download="my-img.jpg">download</a>
+                    </div>
+                    <button>share</button>
+                </section>
+            </div>
+        </section>
+        <div class="upload">
+            <input type="file" class="file-input btn" o name="image" onchange="onImgInput(event)" accept="image/*" />
         </div>
-    </section>
-    <div class="upload">
-        <input type="file" class="file-input btn" o name="image" onchange="onImgInput(event)" accept="image/*" />
     </div>
 
 
