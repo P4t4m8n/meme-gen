@@ -13,12 +13,15 @@
     <header>
         <div>LOGO</div>
         <nav>
-            <button>Galary</button>
-            <button>About</button>
+            <button onclick="OnChangePage(this)">Galary</button>
+            <button onclick="OnChangePage(this)">Memes</button>
+            <button onclick="onAbout(this)">About</button>
         </nav>
     </header>
 
-    <section class="main-body-img">
+    <section class="galary" style="display: none;""></section>
+
+    <section class=" main-body-meme">
         <div>
             <canvas id="my-canvas" width="400" height="400" style="outline: 1px solid darkgray"></canvas>
         </div>
@@ -27,7 +30,7 @@
 
 
             <label>
-                <input class="meme-txt" type="text" value="enter txt" oninput="onSetLineTxt(this)" />
+                <input class="meme-txt" type="text" name="meme-txt" value="enter txt" oninput="onSetLineTxt(this)" />
             </label>
 
             <div class="txt-control">
@@ -59,14 +62,16 @@
     </section>
     <div class="upload">
         <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" accept="image/*" />
-
-
     </div>
 
-    <section class="Galary" style="display: none;"></section>
 
+
+    <script src="js/services/storage.service.js"></script>
+    <script src="js/services/util.service.js"></script>
+    <script src="js/nav.controller.js"></script>
     <script src="js/services/meme.servise.js"></script>
-    <script src="js/meme-controller.js"></script>
+    <script src="js/gallery.controller.js"></script>
+    <script src="js/meme.controller.js"></script>
 </body>
 
 </html>

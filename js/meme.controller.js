@@ -1,20 +1,16 @@
 'use strcit'
 
-var gElCanvas
-var gCtx
+var gElCanvas = document.querySelector('canvas')
+var gCtx = gElCanvas.getContext('2d')
 
-function onInit() {
-    gElCanvas = document.querySelector('canvas')
-    gCtx = gElCanvas.getContext('2d')
 
-    renderMeme()
-}
 
 function renderMeme() {
     // debugger
     const imgUrl = getMemeImg(1)
     const imgContent = getMeme().lines
     var imgObj = new Image()
+    console.log(imgUrl)
 
     imgObj.onload = function () {
         gCtx.drawImage(imgObj, 0, 0, gElCanvas.width, gElCanvas.height)

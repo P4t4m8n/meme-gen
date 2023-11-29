@@ -1,14 +1,18 @@
-*{
+* {
     box-sizing: border-box;
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
-.main-body-img{
+.main-body-img {
     display: flex;
 
+}
+
+.hidden {
+    display: none;
 }
