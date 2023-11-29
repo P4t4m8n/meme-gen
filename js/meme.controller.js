@@ -5,34 +5,65 @@ var gCtx = gElCanvas.getContext('2d')
 var gLineIdx = 1
 
 
+
 //rendering func
 function renderMeme() {
     const imgUrl = getCurrImg().url
+    // console.log(getMeme())
+    // console.log(getLine())
     const imgContent = getMeme().lines
     var imgObj = new Image()
     // console.log(imgUrl)
 
     imgObj.onload = function () {
         gCtx.drawImage(imgObj, 0, 0, gElCanvas.width, gElCanvas.height)
-        imgContent.forEach(line => drawText(line, 50, 50))
+        console.log('hi')
+        debugger
+        if (imgContent) {
+            imgContent.forEach(line => {
+                console.log(line)
+                var { pos } = line
+                drawText(line, pos.x, pos.y)
+            })
+        }
+
 
     }
     imgObj.src = imgUrl
-    renderLines()
+    // renderLines()
 }
+// function renderMeme() {
+//     const imgUrl = getCurrImg().url
+//     const imgContent = getMeme().lines
+//     var imgObj = new Image()
+//     // console.log(imgUrl)
 
-function renderLines() {
-    const lines = document.querySelectorAll('.meme-txt')
-    const memeLines = getMeme().lines
+//     imgObj.onload = function () {
+//         gCtx.drawImage(imgObj, 0, 0, gElCanvas.width, gElCanvas.height)
+//         var gap = 0
+//         imgContent.forEach(line => {
+//             drawText(line, 0, 10 + gap)
+//             gap += 5
+//         })
 
-    for (var i = 0; i < memeLines.length; i++) {
-        console.log(lines[i].value)
-        console.log(memeLines[i].txt)
-        lines[i].value = memeLines[i].txt
-    }
-}
+//     }
+//     imgObj.src = imgUrl
+//     renderLines()
+// }
+
+// function renderLines() {
+//     const lines = document.querySelectorAll('.meme-txt')
+//     const memeLines = getMeme().lines
+
+//     for (var i = 0; i < memeLines.length; i++) {
+//         // console.log(lines[i].value)
+//         // console.log(memeLines[i].txt)
+//         lines[i].value = memeLines[i].txt
+//     }
+// }
 
 //txt manger
+
 function drawText(txtInfo, x, y) {
 
     var memeTxt = txtInfo.txt
@@ -43,23 +74,27 @@ function drawText(txtInfo, x, y) {
     gCtx.fillText(memeTxt, x, y)
 }
 
-function onAddLine() {
+// function onAddLine() {
 
-    var lineStr = ` <label>
-                    <input class="meme-txt" type="text" name="meme-txt" value="enter txt" data-cell-idx="${gLineIdx}"
-                    oninput="onSetLineTxt(this)" />
-                    </label>`
+//     var lineStr = ` <label>
+//                     <input class="meme-txt" type="text" name="meme-txt" value="enter txt" data-cell-idx="${gLineIdx}"
+//                     oninput="onSetLineTxt(this)" />
+//                     </label>`
 
-    var tempInnerHtml = document.querySelector('.txt-boxs').innerHTML + lineStr
-    document.querySelector('.txt-boxs').innerHTML = tempInnerHtml
-    addLine()
-    gLineIdx++
+//     var tempInnerHtml = document.querySelector('.txt-boxs').innerHTML + lineStr
+//     document.querySelector('.txt-boxs').innerHTML = tempInnerHtml
+//     addLine()
+//     gLineIdx++
+// }
+
+function onLineMove(isUp) {
+    console.log(isUp)
 }
 
 function onSetLineTxt(el) {
     const txt = el.value
     const idx = el.dataset.cellIdx
-    console.log(idx)
+    // console.log(idx)
     setLineTxt(txt, idx)
     renderMeme()
 }
@@ -72,6 +107,32 @@ function onSetColor(el) {
 function onSetFontSize(size) {
     setFontSize(size)
     renderMeme()
+}
+
+//txt test
+
+function onAddLine() {
+
+    const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
+    addLine(center)
+    renderMeme()
+}
+
+function keyUpHandler(event) {
+
+    const keyPress = event.key
+    console.log(keyPress)
+    if (keyPress === 'Backspace') {
+        console.log('hi')
+        remomveLetter()
+
+    }
+    else
+        setLineTxt1(keyPress)
+
+    renderMeme()
+
+
 }
 
 

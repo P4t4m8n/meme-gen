@@ -37,12 +37,15 @@
                             oninput="onSetLineTxt(this)" />
                     </label>
                 </div>
-                <button onclick="onAddLine()">Add Line</button>
 
                 <div class="txt-control">
+                    <button onclick="onAddLine()">Add Line</button>
                     <section class="txt-btn">
-                        <button>updown</button>
-                        <button>add</button>
+                        <div class="up-down-btn">
+                            <button onclick="onLineMove(true)">up</button>
+                            <button onclick="onLineMove(false)">down</button>
+                        </div>
+
                         <button>delete</button>
                     </section>
 

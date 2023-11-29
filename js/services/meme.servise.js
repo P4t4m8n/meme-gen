@@ -12,14 +12,20 @@ var gMeme = {
     selectedImgId: 0,
     memeUrl: '',
     selectedLineIdx: 0,
-    lines: [
-        {
-            txt: 'I sometimes eat Falafel',
-            size: 20,
-            color: 'red'
-        }
-    ]
+    lines: []
 }
+// var gMeme = {
+//     selectedImgId: 0,
+//     memeUrl: '',
+//     selectedLineIdx: 0,
+//     lines: [
+//         {
+//             txt: 'I sometimes eat Falafel',
+//             size: 20,
+//             color: 'red'
+//         }
+//     ]
+// }
 
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 
@@ -28,9 +34,12 @@ _createImges()
 // function getImges() {
 //     return gImgs.map(img => img.url)
 // }
-function addLine(txt = 'enter meme', size = 20, color = 'red') {
-    gMeme.lines.push({ txt, size, color })
+function addLine(pos) {
+    gMeme.lines.push(createLine(pos))
 }
+// function addLine(txt = 'enter meme', size = 20, color = 'red') {
+//     gMeme.lines.push({ txt, size, color })
+// }
 //getters
 function getImgs() {
     return gImgs
@@ -52,6 +61,19 @@ function getMeme() {
 function setLineTxt(txt, lineIdx) {
 
     gMeme.lines[lineIdx].txt = txt
+}
+
+function setLineTxt1(txt, lineIdx = 0) {
+
+    gMeme.lines[lineIdx].txt += txt
+}
+
+function remomveLetter(lineIdx = 0) {
+    var str = gMeme.lines[lineIdx].txt
+    str = str.substring(0, str.length - 1)
+    gMeme.lines[lineIdx].txt = str
+    // console.log(gMeme.lines[lineIdx].txt)
+
 }
 
 function setImg(imgId) {
