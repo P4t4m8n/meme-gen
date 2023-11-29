@@ -9,7 +9,7 @@
 </head>
 
 
-<body>
+<body onload="onInit()">
     <header>
         <div>LOGO</div>
         <nav>
@@ -20,14 +20,16 @@
 
     <section class="main-body-img">
         <div>
-            <canvas is="" my-canvas width="400" height="400" style="outline: 1px solid darkgray"></canvas>
+            <canvas id="my-canvas" width="400" height="400" style="outline: 1px solid darkgray"></canvas>
         </div>
 
         <div class="img-control-panel">
-            <form>
-                <label for="meme-txt0"></label>
-                <input type="text" id="meme-txt0" value="Enter your meme">
-            </form>
+
+
+            <label>
+                <input class="meme-txt" type="text" value="enter txt" oninput="onSetLineTxt(this)" />
+            </label>
+
             <div class="txt-control">
                 <section class="txt-btn">
                     <button>updown</button>
@@ -47,18 +49,24 @@
 
                 </section>
 
-                <section file-manger>
-                    <button>save</button>
-                    <button>download</button>
-                    <button>share</button>
-                </section>
             </div>
+            <section file-manger>
+                <button>save</button>
+                <button>download</button>
+                <button>share</button>
+            </section>
         </div>
     </section>
+    <div class="upload">
+        <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" accept="image/*" />
+
+
+    </div>
 
     <section class="Galary" style="display: none;"></section>
 
-    <script src="js/main.js"></script>
+    <script src="js/services/meme.servise.js"></script>
+    <script src="js/meme-controller.js"></script>
 </body>
 
 </html>
