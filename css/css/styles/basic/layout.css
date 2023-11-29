@@ -8,9 +8,14 @@ body {
     justify-content: space-around;
 }
 
-.main-body-img {
+.main-body-meme {
     display: flex;
 
+}
+
+.img-control-panel {
+    display: flex;
+    flex-direction: column;
 }
 
 .hidden {

@@ -9,7 +9,7 @@ function renderMeme() {
     const imgUrl = getCurrImg().url
     const imgContent = getMeme().lines
     var imgObj = new Image()
-    console.log(imgUrl)
+    // console.log(imgUrl)
 
     imgObj.onload = function () {
         gCtx.drawImage(imgObj, 0, 0, gElCanvas.width, gElCanvas.height)
@@ -45,6 +45,25 @@ function onSetLineTxt(el) {
     renderMeme()
 }
 
+function onSetColor(el) {
+    setColor(el.value)
+    renderMeme()
+}
+
+//txt manger
+
+function onSetFontSize(size) {
+    setFontSize(size)
+    renderMeme()
+}
+
+
+//img download
+
+function downloadMeme(elLink) {
+    const imgContent = gElCanvas.toDataURL() // image/jpeg the default format
+    elLink.href = imgContent
+}
 
 
 //img upload

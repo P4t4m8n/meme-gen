@@ -1,14 +1,15 @@
 'use strcit'
+
 const STORAGE_KEY_IMG = 'imgDB'
 const STORAGE_KEY_MEME = 'memDB'
 
 var gImgs
 var gcurrImg
 
-_createImges()
 
 var gMeme = {
     selectedImgId: 0,
+    memeUrl: '',
     selectedLineIdx: 0,
     lines: [
         {
@@ -21,10 +22,13 @@ var gMeme = {
 
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 
+_createImges()
+
 // function getImges() {
 //     return gImgs.map(img => img.url)
 // }
 
+//getters
 function getImgs() {
     return gImgs
 }
@@ -40,6 +44,8 @@ function getMeme() {
     return gMeme
 }
 
+//setters
+
 function setLineTxt(txt) {
     gMeme.lines[0].txt = txt
 }
@@ -48,6 +54,16 @@ function setImg(imgId) {
     gcurrImg = getImgById(imgId)
 }
 
+function setColor(color) {
+    gMeme.lines[0].color = color
+
+}
+
+function setFontSize(size) {
+    gMeme.lines[0].size = size
+}
+
+//private func
 
 function _createImges() {
 

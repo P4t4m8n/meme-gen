@@ -31,7 +31,6 @@
 
         <div class="img-control-panel">
 
-
             <label>
                 <input class="meme-txt" type="text" name="meme-txt" value="enter txt" oninput="onSetLineTxt(this)" />
             </label>
@@ -42,23 +41,33 @@
                     <button>add</button>
                     <button>delete</button>
                 </section>
+
                 <section class="txt-chg">
-                    <button>+</button>
-                    <button>-</button>
+                    <label>
+                        <span data-trans="minRate">Font Size:</span>
+                        <input type="range" min="1" max="100" value="20" title="20"
+                            oninput="this.title=this.value; onSetFontSize( +this.value)" />
+                    </label>
                     <button>left</button>
                     <button>center</button>
                     <button>right</button>
                     <button>effect</button>
-                    <button>color</button>
+                    <form class="change-color">
+                        <input oninput="onSetColor(this)" type="color" id="color" name="color" value="#000000" />
+
+                    </form>
                 </section>
                 <section class="add-imoji">
 
                 </section>
 
             </div>
+
             <section file-manger>
                 <button>save</button>
-                <button>download</button>
+                <div class="download">
+                    <a href="#" class="btn" onclick="downloadMeme(this)" download="my-img.jpg">download</a>
+                </div>
                 <button>share</button>
             </section>
         </div>
