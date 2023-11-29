@@ -6,7 +6,7 @@ var gCtx = gElCanvas.getContext('2d')
 
 
 function renderMeme() {
-    const imgUrl = getMemeImg(1)
+    const imgUrl = getCurrImg().url
     const imgContent = getMeme().lines
     var imgObj = new Image()
     console.log(imgUrl)

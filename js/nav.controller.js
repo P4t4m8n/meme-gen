@@ -2,23 +2,28 @@
 
 function onInit() {
     console.log('hi')
-    
-    // renderGallery()
-    renderMeme()
+
+    renderGallery()
+    // renderMeme()
 }
 
 function OnChangePage(btn) {
 
+    changePage(btn.innerText)
+}
+
+function changePage(page) {
+
     var memePage = document.querySelector('.main-body-meme')
     var galaryPage = document.querySelector('.galary')
 
-    if (btn.innerText === 'Galary') {
+    if (page === 'Galary') {
         memePage.classList.add('hidden')
         galaryPage.classList.remove('hidden')
         renderGallery()
     }
 
-    else if (btn.innerText === 'Memes') {
+    else if (page === 'Memes') {
         galaryPage.classList.add('hidden')
         memePage.classList.remove('hidden')
         renderMeme()

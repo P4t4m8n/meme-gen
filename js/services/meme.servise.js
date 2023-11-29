@@ -3,6 +3,7 @@ const STORAGE_KEY_IMG = 'imgDB'
 const STORAGE_KEY_MEME = 'memDB'
 
 var gImgs
+var gcurrImg
 
 _createImges()
 
@@ -20,13 +21,20 @@ var gMeme = {
 
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 
-function getImges() {
-    return gImgs.map(img => img.url)
+// function getImges() {
+//     return gImgs.map(img => img.url)
+// }
+
+function getImgs() {
+    return gImgs
 }
 
-function getMemeImg(memeImgId) {
-    return gImgs.find(img => memeImgId === img.id).url
+function getCurrImg() {
+    return gcurrImg
+}
 
+function getImgById(imgId) {
+    return gImgs.find(img => imgId === img.id)
 }
 function getMeme() {
     return gMeme
@@ -35,6 +43,11 @@ function getMeme() {
 function setLineTxt(txt) {
     gMeme.lines[0].txt = txt
 }
+
+function setImg(imgId) {
+    gcurrImg = getImgById(imgId)
+}
+
 
 function _createImges() {
 
@@ -47,7 +60,7 @@ function _createImges() {
         gImgs.push({
             id: i,
             url: 'img/meme-imgs/' + parseInt(i + 1) + '.jpg',
-            keywords: ['']
+            keywords: ['Funny', 'Stupid']
         })
 
     }

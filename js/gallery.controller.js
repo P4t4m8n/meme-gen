@@ -3,12 +3,16 @@
 'use strcit'
 
 function renderGallery() {
-    var elGalary = document.querySelector('.galary')
     var strHtml
-    var imgesUrl = getImges()
-    console.log(imgesUrl)
+    var imgs = getImgs()
 
-    strHtml = imgesUrl.map(url => `<img src="${url}" alt="">`).join('')
+    strHtml = imgs.map(img => `<img src="${img.url}" onclick="onImgClick(${img.id})"
+     data-keywords=${img.keywords}>`).join('')
+    document.querySelector('.container').innerHTML = strHtml
+}
 
-    console.log(strHtml)
+function onImgClick(imgId) {
+    console.log('hi')
+    setImg(imgId)
+    changePage('Memes')
 }
