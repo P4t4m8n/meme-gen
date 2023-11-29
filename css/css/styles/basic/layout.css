@@ -65,20 +65,23 @@ img {
     object-fit: cover;
 }
 
-.galary .container > img {
+.galary .container>img {
     border-radius: 0.5rem;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
-    border:1px solid lightgray;   
+    border: 1px solid lightgray;
     transition: scale .2s ease-in-out;
     cursor: pointer;
 }
 
-.galary .container > img:hover {
+.galary .container>img:hover {
     scale: 1.05;
 }
 
 .main-body-meme {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
+    gap: 1rem;
 
 }
 
@@ -118,6 +121,6 @@ header {
 @media only screen and (min-width:1080px) {
     .galary .container {
         grid-template-columns: repeat(6, 1fr);
-        padding:2rem;
+        padding: 2rem;
     }
 }
