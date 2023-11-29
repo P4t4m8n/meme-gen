@@ -14,7 +14,11 @@ function renderMeme() {
 
     imgObj.onload = function () {
         gCtx.drawImage(imgObj, 0, 0, gElCanvas.width, gElCanvas.height)
-        imgContent.forEach(line => drawText(line, 50, 50))
+        var gap = 0
+        imgContent.forEach(line => {
+            drawText(line, 0, 10 + gap)
+            gap += 5
+        })
 
     }
     imgObj.src = imgUrl
@@ -26,13 +30,14 @@ function renderLines() {
     const memeLines = getMeme().lines
 
     for (var i = 0; i < memeLines.length; i++) {
-        console.log(lines[i].value)
-        console.log(memeLines[i].txt)
+        // console.log(lines[i].value)
+        // console.log(memeLines[i].txt)
         lines[i].value = memeLines[i].txt
     }
 }
 
 //txt manger
+
 function drawText(txtInfo, x, y) {
 
     var memeTxt = txtInfo.txt
@@ -56,10 +61,14 @@ function onAddLine() {
     gLineIdx++
 }
 
+function onLineMove(isUp) {
+    console.log(isUp)
+}
+
 function onSetLineTxt(el) {
     const txt = el.value
     const idx = el.dataset.cellIdx
-    console.log(idx)
+    // console.log(idx)
     setLineTxt(txt, idx)
     renderMeme()
 }
@@ -72,6 +81,25 @@ function onSetColor(el) {
 function onSetFontSize(size) {
     setFontSize(size)
     renderMeme()
+}
+
+//txt test
+
+function keyUpHandler(event) {
+
+    const keyPress = event.key
+    console.log(keyPress)
+    if (keyPress === 'Backspace') {
+        console.log('hi')
+        remomveLetter()
+
+    }
+    else
+        setLineTxt1(keyPress)
+
+    renderMeme()
+
+
 }
 
 

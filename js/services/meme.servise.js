@@ -54,6 +54,18 @@ function setLineTxt(txt, lineIdx) {
     gMeme.lines[lineIdx].txt = txt
 }
 
+function setLineTxt1(txt, lineIdx = 0) {
+
+    gMeme.lines[lineIdx].txt += txt
+}
+
+function remomveLetter(lineIdx = 0) {
+    var str = gMeme.lines[lineIdx].txt
+    str = str.substring(0, str.length - 1)
+    gMeme.lines[lineIdx].txt = str
+
+}
+
 function setImg(imgId) {
     gcurrImg = getImgById(imgId)
 }

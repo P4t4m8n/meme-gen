@@ -26,5 +26,6 @@ function changePage(page) {
         galaryPage.classList.add('hidden')
         memePage.classList.remove('hidden')
         renderMeme()
+        window.addEventListener("keyup", keyUpHandler, true)
     }
 }
