@@ -1,5 +1,5 @@
 .main-body-meme {
-    display: flex;
+    /* display: flex; */
     justify-content: space-around;
     background: #d9a7c7;
     background: -webkit-linear-gradient(220deg, #fffcdc, #7303c0);
@@ -53,5 +53,5 @@ canvas {
 }
 
 .file-manger{
-    display: fl;
+    display: flex;
 }

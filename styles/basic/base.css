@@ -13,6 +13,14 @@ img {
     object-fit: cover;
 }
 
+.main-body-meme {
+    display: flex;
+}
+
 .hidden {
+    display: none;
+}
+
+image-upload>input {
     display: none;
 }

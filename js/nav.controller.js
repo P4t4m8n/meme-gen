@@ -4,10 +4,8 @@ function onInit() {
     renderGallery()
 }
 
-//page management
 
 function OnChangePage(btn) {
-
     changePage(btn.innerText)
 }
 

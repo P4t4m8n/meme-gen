@@ -5,8 +5,8 @@
 
 /* BASICS */
 
-@import url("basic/base.css");
 @import url("basic/layout.css");
+@import url("basic/base.css");
 
 /* COMPONENTS */
 

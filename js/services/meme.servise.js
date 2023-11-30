@@ -20,6 +20,7 @@ var gMeme = {
     selectedLineIdx: 0,
     lines: [
         {
+            pos: { x: 20, y: 20 },
             txt: 'I sometimes eat Falafel',
             size: 20,
             color: 'red'
