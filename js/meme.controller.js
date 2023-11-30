@@ -34,6 +34,7 @@ function renderMeme() {
     }
     imgObj.src = imgUrl
     resizeCanvas()
+    renderTxtBox()
 }
 
 function resizeCanvas() {
@@ -42,20 +43,14 @@ function resizeCanvas() {
     gElCanvas.height = elContainer.offsetHeight
 }
 
-function renderLines() {
-    const lines = document.querySelectorAll('.meme-txt')
-    const memeLines = getMeme().lines
-
-    for (var i = 0; i < memeLines.length; i++) {
-
-        lines[i].value = memeLines[i].txt
-    }
+function renderTxtBox() {
+    const memeLines = getCurrLine().txt
+    document.querySelector('.meme-txt').value = memeLines
 }
 
 //txt manger
 
 function drawText(txtInfo, x, y) {
-    // debugger
     var memeTxt = txtInfo.txt
 
     gCtx.fillStyle = txtInfo.color
@@ -75,7 +70,6 @@ function drawText(txtInfo, x, y) {
 
     if (txtInfo.isMarked) gCtx.strokeRect(x, y, measures.width, height + 8)
 }
-
 
 function onLineMove(isUp) {
     // (isUp)
@@ -126,12 +120,9 @@ function addTouchListeners() {
 //mouse and touch events
 
 function onDown(ev) {
-
     const pos = getEvPos(ev)
     if (!isInTxtArea(pos)) return
-
     gMousePos = pos
-    console.log(pos)
     renderMeme()
 
 }
@@ -139,17 +130,15 @@ function onDown(ev) {
 function onMove(ev) {
     if (!isLineClicked()) return
     const pos = getEvPos(ev)
-
     const dx = pos.x - gMousePos.x
     const dy = pos.y - gMousePos.y
-    setPos({x: dx, y:dy })
+    setPos({ x: dx, y: dy })
     gMousePos = pos
     renderMeme()
 }
 
 function onUp() {
     setIsClicked(false)
-
 }
 
 function getEvPos(ev) {
@@ -180,7 +169,6 @@ function onAddLine() {
 }
 
 function keyUpHandler(event) {
-
     const keyPress = event.key
     if (keyPress === 'Backspace') {
         remomveLetter()
@@ -196,7 +184,7 @@ function keyUpHandler(event) {
 //img download
 
 function downloadMeme(elLink) {
-    const imgContent = gElCanvas.toDataURL() // image/jpeg the default format
+    const imgContent = gElCanvas.toDataURL()
     elLink.href = imgContent
 }
 
