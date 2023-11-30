@@ -17,16 +17,11 @@ function renderMeme() {
 
     imgObj.onload = function () {
         gCtx.drawImage(imgObj, 0, 0, gElCanvas.width, gElCanvas.height)
-        console.log('hi')
-        debugger
-        if (imgContent) {
-            imgContent.forEach(line => {
-                console.log(line)
-                var { pos } = line
-                drawText(line, pos.x, pos.y)
-            })
-        }
-
+        var gap = 0
+        imgContent.forEach(line => {
+            drawText(line, 0, 10 + gap)
+            gap += 5
+        })
 
     }
     imgObj.src = imgUrl
@@ -46,21 +41,12 @@ function renderMeme() {
 //             gap += 5
 //         })
 
-//     }
-//     imgObj.src = imgUrl
-//     renderLines()
-// }
+for (var i = 0; i < memeLines.length; i++) {
+    // console.log(lines[i].value)
+    // console.log(memeLines[i].txt)
+    lines[i].value = memeLines[i].txt
+}
 
-// function renderLines() {
-//     const lines = document.querySelectorAll('.meme-txt')
-//     const memeLines = getMeme().lines
-
-//     for (var i = 0; i < memeLines.length; i++) {
-//         // console.log(lines[i].value)
-//         // console.log(memeLines[i].txt)
-//         lines[i].value = memeLines[i].txt
-//     }
-// }
 
 //txt manger
 
@@ -91,6 +77,10 @@ function onLineMove(isUp) {
     console.log(isUp)
 }
 
+function onLineMove(isUp) {
+    console.log(isUp)
+}
+
 function onSetLineTxt(el) {
     const txt = el.value
     const idx = el.dataset.cellIdx
@@ -110,13 +100,6 @@ function onSetFontSize(size) {
 }
 
 //txt test
-
-function onAddLine() {
-
-    const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
-    addLine(center)
-    renderMeme()
-}
 
 function keyUpHandler(event) {
 
