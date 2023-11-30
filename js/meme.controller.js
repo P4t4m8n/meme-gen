@@ -5,7 +5,7 @@ var gCtx = gElCanvas.getContext('2d')
 var gLineIdx = 1
 var gCanavsCenter = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
 var gMousePos
-
+var gTxtBoxFoucs = false
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 
@@ -56,8 +56,8 @@ function drawText(txtInfo, x, y) {
     gCtx.fillStyle = txtInfo.color
     gCtx.font = txtInfo.size.toString() + 'px Arial'
 
-    gCtx.textAlign = 'left';
-    gCtx.textBaseline = 'top';
+    gCtx.textAlign = txtInfo.align
+    // gCtx.textBaseline = 'top';
 
     let measures = gCtx.measureText(memeTxt);
     let height = measures.actualBoundingBoxAscent + measures.actualBoundingBoxDescent;
@@ -77,8 +77,14 @@ function onLineMove(isUp) {
 
 function onSetLineTxt(el) {
     const txt = el.value
-    const idx = el.dataset.cellIdx
-    setLineTxt(txt, idx)
+    setLineTxt(txt, true)
+    renderMeme()
+}
+
+function onSetAlign(btn) {
+    const align = btn.innerText
+    console.log(align)
+    setTxtAlign(align)
     renderMeme()
 }
 
@@ -92,11 +98,19 @@ function onSetFontSize(size) {
     renderMeme()
 }
 
+function onBoxFoucs() {
+    console.log(gTxtBoxFoucs)
+    gTxtBoxFoucs = !gTxtBoxFoucs
+    console.log(gTxtBoxFoucs)
+}
+
+
 //Listeners
 
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
+
     window.addEventListener("keyup", keyUpHandler, true)
     window.addEventListener('resize', () => {
         resizeCanvas()
@@ -169,14 +183,19 @@ function onAddLine() {
 }
 
 function keyUpHandler(event) {
+    if (gTxtBoxFoucs) return
     const keyPress = event.key
     if (keyPress === 'Backspace') {
         remomveLetter()
     }
     else
-        setLineTxt(keyPress)
+        setLineTxt(keyPress, false)
     renderMeme()
 
+
+}
+
+function onTxtAlign(align) {
 
 }
 

@@ -44,9 +44,9 @@
                             <input oninput="onSetColor(this)" type="color" id="color" name="color" value="#000000" />
                         </div>
                         <div>
-                            <button>left</button>
-                            <button>center</button>
-                            <button>right</button>
+                            <button onclick="onSetAlign(this)">left</button>
+                            <button onclick="onSetAlign(this)">center</button>
+                            <button onclick="onSetAlign(this)">right</button>
                             <button>effect</button>
                         </div>
                     </section>
@@ -63,7 +63,7 @@
             <div class="side-menu-meme">
                 <div class="txt-boxs">
                     <input class="meme-txt" type="text" name="meme-txt" value="enter txt" data-cell-idx="0"
-                        oninput="onSetLineTxt(this)" />
+                        oninput="onSetLineTxt(this)" onfocusin="onBoxFoucs()" onfocusout="onBoxFoucs()" />
                 </div>
                 <section class="file-manger">
                     <button>save</button>

@@ -18,11 +18,10 @@ var gMeme = {
 
 _createImges()
 
-function addLine(pos = { x: 50, y: 50 }, txt = 'enter meme', size = 48, color = 'red', txtWidth = 5, txtHeight = 5, isMarked = true, isClicked = false) {
+function addLine(pos = { x: 50, y: 50 }, txt = 'enter meme', size = 48, color = 'red', txtWidth = 5, txtHeight = 5, isMarked = true, isClicked = false, align = 'left') {
     if (gMeme.lines.length > 0) setIsMarked(false)
-    gCurrLine = gMeme.lines.push({ pos, txt, size, color, txtWidth: txtWidth, txtHeight, isMarked, isClicked }) - 1
-    console.log(gMeme.lines)
-    console.log(gCurrLine)
+    gCurrLine = gMeme.lines.push({ pos, txt, size, color, txtWidth: txtWidth, txtHeight, isMarked, isClicked, align }) - 1
+   
 }
 
 function isInTxtArea(clickedPos) {
@@ -43,7 +42,7 @@ function isInTxtArea(clickedPos) {
     })
 
     if (isInIdx >= 0) {
-        
+
         setIsMarked(false)
         gCurrLine = isInIdx
         setIsMarked(true)
@@ -57,10 +56,10 @@ function isLineClicked(idx = gCurrLine) {
     return gMeme.lines[idx].isClicked
 }
 
-function remomveLetter(lineIdx = 0) {
-    var str = gMeme.lines[lineIdx].txt
+function remomveLetter(idx = gCurrLine) {
+    var str = gMeme.lines[idx].txt
     str = str.substring(0, str.length - 1)
-    gMeme.lines[lineIdx].txt = str
+    gMeme.lines[idx].txt = str
 
 }
 
@@ -97,15 +96,23 @@ function getCurrLine() {
 
 //setters
 
+function setTxtAlign(align, idx = gCurrLine) {
+    // console.log(align)
+    // console.log(gMeme.lines[idx].align)
+    gMeme.lines[idx].align = align
+    // console.log(align)
+    // console.log(gMeme.lines[idx].align)
+}
+
 function setIsMarked(isMarked, idx = gCurrLine) {
     gMeme.lines[idx].isMarked = isMarked
 }
 function setPos(pos, idx = gCurrLine) {
-    
+
 
     gMeme.lines[idx].pos.x += pos.x
     gMeme.lines[idx].pos.y += pos.y
-   
+
 
 }
 
@@ -113,8 +120,9 @@ function setIsClicked(isClicked, idx = gCurrLine) {
     gMeme.lines[idx].isClicked = isClicked
 }
 
-function setLineTxt(txt, lineIdx = 0) {
-    gMeme.lines[lineIdx].txt += txt
+function setLineTxt(txt, isBox, idx = gCurrLine) {
+    if (isBox) gMeme.lines[idx].txt = txt
+    else gMeme.lines[idx].txt += txt
 }
 
 function setLineHeight(height, idx = gCurrLine) {
