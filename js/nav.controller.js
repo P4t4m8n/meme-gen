@@ -4,10 +4,8 @@ function onInit() {
     renderGallery()
 }
 
-//page management
 
 function OnChangePage(btn) {
-
     changePage(btn.innerText)
 }
 
@@ -26,6 +24,7 @@ function changePage(page) {
         galaryPage.classList.add('hidden')
         memePage.classList.remove('hidden')
         renderMeme()
-        window.addEventListener("keyup", keyUpHandler, true)
+        addListeners()
+        
     }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="styles\style.css">
     <title>Document</title>
 </head>
 
@@ -25,8 +25,8 @@
 
         </section>
 
-        <section class=" main-body-meme hidden">
-            <div>
+        <section class="main-body-meme hidden">
+            <div class="canvas-container">
                 <canvas id="my-canvas"></canvas>
             </div>
 
@@ -38,31 +38,41 @@
                     </label>
                 </div>
 
-                <div class="txt-control">
-                    <button onclick="onAddLine()">Add Line</button>
-                    <section class="txt-btn">
-                        <div class="up-down-btn">
-                            <button onclick="onLineMove(true)">up</button>
-                            <button onclick="onLineMove(false)">down</button>
-                        </div>
+                <div id="mydiv">
+                    <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+                    <div id="mydivheader">Click here to move</div>
+                    <p>Move</p>
+                    <p>this</p>
+                    <p>DIV</p>
+                </div>
 
+                <div class="txt-control">
+                    <section class="txt-btn">
+                        <button onclick="onAddLine()">Add Line</button>
+                        <button onclick="onLineMove(true)">up</button>
+                        <button onclick="onLineMove(false)">down</button>
                         <button>delete</button>
                     </section>
 
                     <section class="txt-chg">
-                        <label>
-                            <span data-trans="minRate">Font Size:</span>
-                            <input type="range" min="1" max="100" value="20" title="20"
-                                oninput="this.title=this.value; onSetFontSize( +this.value)" />
-                        </label>
-                        <button>left</button>
-                        <button>center</button>
-                        <button>right</button>
-                        <button>effect</button>
-                        <form class="change-color">
-                            <input oninput="onSetColor(this)" type="color" id="color" name="color" value="#000000" />
+                        <div class="Scalar ">
+                            <label>
+                                <span data-trans="minRate">Font Size:</span>
+                                <input type="range" min="1" max="100" value="20" title="20"
+                                    oninput="this.title=this.value; onSetFontSize( +this.value)" />
+                            </label>
+                            <form class="change-color">
+                                <input oninput="onSetColor(this)" type="color" id="color" name="color"
+                                    value="#000000" />
 
-                        </form>
+                            </form>
+                        </div>
+                        <div>
+                            <button>left</button>
+                            <button>center</button>
+                            <button>right</button>
+                            <button>effect</button>
+                        </div>
                     </section>
                     <section class="add-imoji">
 
@@ -70,7 +80,7 @@
 
                 </div>
 
-                <section file-manger>
+                <section class="file-manger">
                     <button>save</button>
                     <div class="download">
                         <a href="#" class="btn" onclick="downloadMeme(this)" download="my-img.jpg">download</a>
@@ -79,9 +89,11 @@
                 </section>
             </div>
         </section>
+
         <div class="upload">
-            <input type="file" class="file-input btn" o name="image" onchange="onImgInput(event)" accept="image/*" />
+            <input id="file-input" type="file" hidden />
         </div>
+    </div>
     </div>
 
 

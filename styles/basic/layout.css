@@ -1,0 +1,21 @@
+body {
+    background-color: black;
+    margin: 2rem;
+    margin-inline: 4rem;
+}
+
+
+
+
+.galary .container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 1rem;
+    gap: 1rem;
+}
+
+nav {
+    display: flex;
+    gap: 16px;
+}
+

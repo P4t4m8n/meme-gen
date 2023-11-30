@@ -1,0 +1,11 @@
+.galary .container>img {
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 12px;
+    border: 1px solid lightgray;
+    transition: scale .2s ease-in-out;
+    cursor: pointer;
+}
+
+.galary .container>img:hover {
+    scale: 1.05;
+}
