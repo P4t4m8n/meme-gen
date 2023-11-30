@@ -17,12 +17,12 @@ nav button {
 
 header {
     display: flex;
-    margin: 4px;
     background: -webkit-linear-gradient(220deg, #ec38bc, #7303c0, #3420b5);
     background: linear-gradient(220deg, #ec38bc, #7303c0, #3420b5);
     color: white;
     padding: 20px;
     justify-content: space-between;
-    border-radius: 100px;
     align-items: center;
+    margin-inline:auto;
+
 }

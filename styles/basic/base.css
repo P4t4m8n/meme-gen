@@ -2,9 +2,13 @@
     box-sizing: border-box;
 }
 
+html {
+    height:100%;
+}
 body {
     font-family: Inter;
     margin: 0;
+    height:100%;
     padding: 0;
 }
 
@@ -12,13 +16,15 @@ img {
     max-width: 100%;
     object-fit: cover;
 }
-
+.main-page {
+    height:100%;
+}
 .main-body-meme {
     display: flex;
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 image-upload>input {

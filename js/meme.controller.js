@@ -4,6 +4,8 @@ var gElCanvas = document.querySelector('canvas')
 var gCtx = gElCanvas.getContext('2d')
 var gLineIdx = 1
 var gCanavsCenter = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
+var gMousePos
+
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 
@@ -13,6 +15,7 @@ const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 function renderMeme() {
     const imgUrl = getCurrImg().url
     var imgContent = getMeme().lines
+    // (imgContent)
 
     var imgObj = new Image()
     imgObj.onload = function () {
@@ -52,7 +55,7 @@ function renderLines() {
 //txt manger
 
 function drawText(txtInfo, x, y) {
-
+    // debugger
     var memeTxt = txtInfo.txt
 
     gCtx.fillStyle = txtInfo.color
@@ -62,19 +65,20 @@ function drawText(txtInfo, x, y) {
     gCtx.textBaseline = 'top';
 
     let measures = gCtx.measureText(memeTxt);
-    let height = measures.actualBoundingBoxAscent + measures.actualBoundingBoxDescent + 4;
+    let height = measures.actualBoundingBoxAscent + measures.actualBoundingBoxDescent;
+
 
     setLineWidth(measures.width)
     setLineHeight(height)
 
     gCtx.fillText(memeTxt, x, y)
 
-    gCtx.strokeRect(x, y, measures.width + txtInfo.size, height)
+    if (txtInfo.isMarked) gCtx.strokeRect(x, y, measures.width, height + 8)
 }
 
 
 function onLineMove(isUp) {
-    // console.log(isUp)
+    // (isUp)
 }
 
 function onSetLineTxt(el) {
@@ -122,10 +126,13 @@ function addTouchListeners() {
 //mouse and touch events
 
 function onDown(ev) {
-    console.log('hi')
+
     const pos = getEvPos(ev)
-    
     if (!isInTxtArea(pos)) return
+
+    gMousePos = pos
+    console.log(pos)
+    renderMeme()
 
 }
 
@@ -133,7 +140,10 @@ function onMove(ev) {
     if (!isLineClicked()) return
     const pos = getEvPos(ev)
 
-    setPos(pos)
+    const dx = pos.x - gMousePos.x
+    const dy = pos.y - gMousePos.y
+    setPos({x: dx, y:dy })
+    gMousePos = pos
     renderMeme()
 }
 

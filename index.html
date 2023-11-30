@@ -26,46 +26,22 @@
         </section>
 
         <section class="main-body-meme hidden">
-            <div class="canvas-container">
-                <canvas id="my-canvas"></canvas>
-            </div>
-
-            <div class="img-control-panel">
-                <div class="txt-boxs">
-                    <label>
-                        <input class="meme-txt" type="text" name="meme-txt" value="enter txt" data-cell-idx="0"
-                            oninput="onSetLineTxt(this)" />
-                    </label>
-                </div>
-
-                <div id="mydiv">
-                    <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-                    <div id="mydivheader">Click here to move</div>
-                    <p>Move</p>
-                    <p>this</p>
-                    <p>DIV</p>
-                </div>
-
-                <div class="txt-control">
+            <div class="left">
+                <div class="img-control-panel">
                     <section class="txt-btn">
-                        <button onclick="onAddLine()">Add Line</button>
-                        <button onclick="onLineMove(true)">up</button>
-                        <button onclick="onLineMove(false)">down</button>
-                        <button>delete</button>
-                    </section>
-
-                    <section class="txt-chg">
-                        <div class="Scalar ">
+                        <div>
+                            <button onclick="onAddLine()">Add Line</button>
+                            <button onclick="onLineMove(true)">up</button>
+                            <button onclick="onLineMove(false)">down</button>
+                            <button>delete</button>
+                        </div>
+                        <div>
                             <label>
                                 <span data-trans="minRate">Font Size:</span>
                                 <input type="range" min="1" max="100" value="20" title="20"
                                     oninput="this.title=this.value; onSetFontSize( +this.value)" />
                             </label>
-                            <form class="change-color">
-                                <input oninput="onSetColor(this)" type="color" id="color" name="color"
-                                    value="#000000" />
-
-                            </form>
+                            <input oninput="onSetColor(this)" type="color" id="color" name="color" value="#000000" />
                         </div>
                         <div>
                             <button>left</button>
@@ -77,9 +53,18 @@
                     <section class="add-imoji">
 
                     </section>
-
                 </div>
-
+                <div class="canvas-overlay">
+                    <div class="canvas-container">
+                        <canvas id="my-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="side-menu-meme">
+                <div class="txt-boxs">
+                    <input class="meme-txt" type="text" name="meme-txt" value="enter txt" data-cell-idx="0"
+                        oninput="onSetLineTxt(this)" />
+                </div>
                 <section class="file-manger">
                     <button>save</button>
                     <div class="download">
