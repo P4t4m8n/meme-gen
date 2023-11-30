@@ -18,7 +18,7 @@ var gMeme = {
 
 _createImges()
 
-function addLine(pos = { x: 50, y: 50 }, txt = 'enter meme', size = 48, color = 'red', txtWidth = 5, txtHeight = 5, isMarked = true, isClicked = false, align = 'left') {
+function addLine(pos = { x: 200, y: 200 }, txt = 'enter meme', size = 48, color = 'red', txtWidth = 5, txtHeight = 5, isMarked = true, isClicked = false, align = 'center') {
     if (gMeme.lines.length > 0) setIsMarked(false)
     gCurrLine = gMeme.lines.push({ pos, txt, size, color, txtWidth: txtWidth, txtHeight, isMarked, isClicked, align }) - 1
    

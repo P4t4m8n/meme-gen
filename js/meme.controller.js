@@ -68,7 +68,9 @@ function drawText(txtInfo, x, y) {
 
     gCtx.fillText(memeTxt, x, y)
 
-    if (txtInfo.isMarked) gCtx.strokeRect(x, y, measures.width, height + 8)
+    // gCtx.strokeRect(x, y, measures.width, height + 8)
+    if (txtInfo.isMarked) { if (txtInfo.align === 'left') gCtx.strokeRect(x, y, measures.width, height + 8) }
+    if (txtInfo.isMarked) { if (txtInfo.align === 'center') gCtx.strokeRect(x - (measures.width / 2), y-measures.width, measures.width, height + 8) }
 }
 
 function onLineMove(isUp) {
