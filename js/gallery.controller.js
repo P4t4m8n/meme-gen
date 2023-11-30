@@ -18,7 +18,7 @@ function renderGallery() {
 //img picker
 
 function onImgClick(imgId) {
-    console.log('hi')
+    // console.log('hi')
     setImg(imgId)
     changePage('Memes')
 }
