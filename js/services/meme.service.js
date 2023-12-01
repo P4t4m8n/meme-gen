@@ -2,11 +2,15 @@
 
 const STORAGE_KEY_IMG = 'imgDB'
 const STORAGE_KEY_MEME = 'memDB'
+const STORAGE_KEY_WORDS = 'keywordsDB'
 
 var gImgs
-var gcurrImg
+var gCurrImg
 var gCurrPageIdx = 0
 var gCurrLine = 0
+var gFilterBy = 'All'
+
+var gKeywords = []
 
 var gMeme = {
     selectedImgId: 0,
@@ -17,6 +21,7 @@ var gMeme = {
 }
 
 _createImges()
+_createKeywords()
 
 function addLine(pos = { x: 200, y: 200 }, txt = 'enter meme', size = 48, color = 'red', txtWidth = 5, txtHeight = 5, isMarked = true, isClicked = false, align = 'center') {
     if (gMeme.lines.length > 0) setIsMarked(false)
@@ -67,6 +72,15 @@ function isLineClicked(idx = gCurrLine) {
     return gMeme.lines[idx].isClicked
 }
 
+function filterBy(key) {
+    gFilterBy = key
+    var idx = gKeywords.findIndex(keyword => keyword.key === key)
+    gKeywords[idx].size++
+    _saveItemsToStorge(STORAGE_KEY_WORDS,gKeywords)
+    return gFilterBy
+
+}
+
 function remomveLetter(idx = gCurrLine) {
     var str = gMeme.lines[idx].txt
     str = str.substring(0, str.length - 1)
@@ -74,6 +88,24 @@ function remomveLetter(idx = gCurrLine) {
 
 }
 
+function addKeyword(keyword) {
+
+    var keyObj = { key: keyword, size: 24 }
+
+    if (!gCurrImg.keywords.find(key => {
+
+        return key.key === keyword
+    })) gCurrImg.keywords.push(keyObj)
+    if (!gKeywords.find(key => {
+
+        return key.key === keyword
+    })) gKeywords.push(keyObj)
+
+
+    saveToStorage(STORAGE_KEY_IMG, gImgs)
+    saveToStorage(STORAGE_KEY_WORDS, gKeywords)
+
+}
 //getters
 
 function getPos(idx = gCurrLine) {
@@ -82,11 +114,21 @@ function getPos(idx = gCurrLine) {
 }
 
 function getImgs() {
-    return gImgs
+    var imges = gImgs
+
+    if (gFilterBy !== 'All')
+      var  imges = gImgs.filter((img) => {
+
+            return img.keywords.find(keyword => {
+                return keyword.key === gFilterBy
+            })
+        })
+
+    return imges
 }
 
 function getCurrImg() {
-    return gcurrImg
+    return gCurrImg
 }
 
 function getImgById(imgId) {
@@ -104,15 +146,15 @@ function getCurrLine() {
     return gMeme.lines[gCurrLine]
 }
 
+function getKeywords() {
+    return gKeywords
+}
+
 
 //setters
 
 function setTxtAlign(align, idx = gCurrLine) {
-    // console.log(align)
-    // console.log(gMeme.lines[idx].align)
     gMeme.lines[idx].align = align
-    // console.log(align)
-    // console.log(gMeme.lines[idx].align)
 }
 
 function setIsMarked(isMarked, idx = gCurrLine) {
@@ -120,10 +162,8 @@ function setIsMarked(isMarked, idx = gCurrLine) {
 }
 function setPos(pos, idx = gCurrLine) {
 
-
     gMeme.lines[idx].pos.x += pos.x
     gMeme.lines[idx].pos.y += pos.y
-
 
 }
 
@@ -145,7 +185,7 @@ function setLineWidth(width, idx = gCurrLine) {
 }
 
 function setImg(imgId) {
-    gcurrImg = getImgById(imgId)
+    gCurrImg = getImgById(imgId)
 }
 
 function setColor(color, idx = gCurrLine) {
@@ -170,15 +210,26 @@ function _createImges() {
         gImgs.push({
             id: i,
             url: 'img/meme-imgs/' + parseInt(i + 1) + '.jpg',
-            keywords: ['Funny', 'Stupid']
+            keywords: [],
         })
 
     }
-    _saveImgsToStorge()
+    _saveItemsToStorge(STORAGE_KEY_IMG,gImgs)
 }
 
-function _saveImgsToStorge() {
-    saveToStorage(STORAGE_KEY_IMG, gImgs)
+function _createKeywords() {
+    gKeywords = loadFromStorage(STORAGE_KEY_WORDS)
+    if (gKeywords && gKeywords.length) return
+
+    gKeywords = []
+
+    gKeywords = [{ key: 'trump', size: 36 }, { key: 'dogs', size: 42 }, { key: 'funny', size: 30 }]
+    _saveItemsToStorge(STORAGE_KEY_WORDS,gKeywords)
+
+}
+
+function _saveItemsToStorge(key,arr) {
+    saveToStorage(key, arr)
 }
 
 

@@ -104,11 +104,12 @@ canvas {
 
 .side-menu-meme {
     background: whitesmoke;
+    
 }
 
 .txt-boxs {
-    padding: .5rem;
-    width: 100%;
+    padding-left: 0.5rem;
+    width: 50%;
     display: flex;
     justify-content: center;
 }

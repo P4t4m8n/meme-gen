@@ -9,3 +9,28 @@
 .galary .container>img:hover {
     scale: 1.05;
 }
+
+.upload-img,
+.random-img {
+    background-color: white;
+    border-radius: 30px;
+    border: black;
+}
+
+.galary .sort-by {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+
+.sort-by input {
+    width: fit-content;
+    height: fit-content;
+}
+
+.key-words li {
+    display: inline;
+    list-style: none;
+    padding: 0.5rem;
+}

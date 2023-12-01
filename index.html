@@ -22,18 +22,12 @@
 
         <section class="galary">
             <header>
-                <button onclick="onRndImgPick()">Im Flexibale</button>
-                <form  class="sort-by">
-                    <label for="browser">Choose your browser from the list:</label>
-                    <input list="browsers" name="browser" id="browser">
-                    <datalist id="browsers">
-                        <option value="Edge">
-                        <option value="Firefox">
-                        <option value="Chrome">
-                        <option value="Opera">
-                        <option value="Safari">
+                <form class="sort-by">
+                    <input list="key-words" name="key-words" id="key-words"">
+                    <datalist id=" key-words">
                     </datalist>
-                    <input type="submit">
+                    <div class="keyword-con"></div>
+
                 </form>
 
             </header>
@@ -77,12 +71,14 @@
                 </div>
             </div>
             <div class="side-menu-meme">
-                <div class="txt-boxs">
+                <div class="txt-boxs" onfocusin="onBoxFoucs()" onfocusout="onBoxFoucs()">
                     <input class="meme-txt" type="text" name="meme-txt" value="enter txt" data-cell-idx="0"
-                        oninput="onSetLineTxt(this)" onfocusin="onBoxFoucs()" onfocusout="onBoxFoucs()" />
+                        oninput="onSetLineTxt(this)">
                 </div>
-                <div class="emoji-box">
 
+                <button onclick="OnAddKeyword(this)">add</button>
+
+                <div class="emoji-box">
                 </div>
                 <section class="file-manger">
                     <button>save</button>

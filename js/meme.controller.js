@@ -15,7 +15,6 @@ const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 function renderMeme() {
     const imgUrl = getCurrImg().url
     var imgContent = getMeme().lines
-    // (imgContent)
 
     var imgObj = new Image()
     imgObj.onload = function () {
@@ -49,14 +48,12 @@ function renderEmojis() {
     const emojis = getEmojis()
 
     var strHtml = `<ul class="emoji-list">`
-    console.log(emojis)
 
     strHtml += emojis.map(emoji =>
         `<li onclick="onEmojiClick(this)">${emoji}</li>`
-    )
+    ).join('')
 
     strHtml += `</ul>`
-    console.log(strHtml)
     document.querySelector('.emoji-box').innerHTML = strHtml
 }
 
@@ -98,6 +95,13 @@ function onLineMove(isUp) {
     // (isUp)
 }
 
+function OnAddKeyword() {
+
+    addKeyword(prompt('enter'))
+    
+   
+}
+
 function onFontChange() {
     //open model change font
 }
@@ -114,7 +118,6 @@ function onSetLineTxt(el) {
 
 function onSetAlign(btn) {
     const align = btn.innerText
-    console.log(align)
     setTxtAlign(align)
     renderMeme()
 }
@@ -130,9 +133,7 @@ function onSetFontSize(size) {
 }
 
 function onBoxFoucs() {
-    console.log(gTxtBoxFoucs)
     gTxtBoxFoucs = !gTxtBoxFoucs
-    console.log(gTxtBoxFoucs)
 }
 
 
@@ -166,7 +167,7 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    console.log(pos)
+    // console.log(pos)
     if (!isInTxtArea(pos)) return
     gMousePos = pos
     renderMeme()
@@ -207,7 +208,7 @@ function getEvPos(ev) {
 
 //txt test
 
-function onEmojiClick(btn){
+function onEmojiClick(btn) {
     //pick emoji add as aline and render to canvas
 
 }
