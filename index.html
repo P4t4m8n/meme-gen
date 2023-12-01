@@ -21,6 +21,22 @@
         </header>
 
         <section class="galary">
+            <header>
+                <button onclick="onRndImgPick()">Im Flexibale</button>
+                <form  class="sort-by">
+                    <label for="browser">Choose your browser from the list:</label>
+                    <input list="browsers" name="browser" id="browser">
+                    <datalist id="browsers">
+                        <option value="Edge">
+                        <option value="Firefox">
+                        <option value="Chrome">
+                        <option value="Opera">
+                        <option value="Safari">
+                    </datalist>
+                    <input type="submit">
+                </form>
+
+            </header>
             <div class="container"></div>
 
         </section>
@@ -47,7 +63,7 @@
                             <button onclick="onSetAlign(this)">left</button>
                             <button onclick="onSetAlign(this)">center</button>
                             <button onclick="onSetAlign(this)">right</button>
-                            <button>effect</button>
+                            <button onclick="onFontChange()">Font</button>
                         </div>
                     </section>
                     <section class="add-imoji">
@@ -65,6 +81,9 @@
                     <input class="meme-txt" type="text" name="meme-txt" value="enter txt" data-cell-idx="0"
                         oninput="onSetLineTxt(this)" onfocusin="onBoxFoucs()" onfocusout="onBoxFoucs()" />
                 </div>
+                <div class="emoji-box">
+
+                </div>
                 <section class="file-manger">
                     <button>save</button>
                     <div class="download">
@@ -79,16 +98,17 @@
             <input id="file-input" type="file" hidden />
         </div>
     </div>
-    </div>
+
 
 
 
 
     <script src="js/services/storage.service.js"></script>
     <script src="js/services/util.service.js"></script>
-    <script src="js/nav.controller.js"></script>
+    <script src="js/services/emoji.service.js"></script>
     <script src="js/services/text.servise.js"></script>
-    <script src="js/services/meme.servise.js"></script>
+    <script src="js/services/meme.service.js"></script>
+    <script src="js/nav.controller.js"></script>
     <script src="js/gallery.controller.js"></script>
     <script src="js/meme.controller.js"></script>
 </body>

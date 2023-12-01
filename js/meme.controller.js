@@ -35,6 +35,7 @@ function renderMeme() {
     imgObj.src = imgUrl
     resizeCanvas()
     renderTxtBox()
+    renderEmojis()
 }
 
 function resizeCanvas() {
@@ -42,6 +43,23 @@ function resizeCanvas() {
     gElCanvas.width = elContainer.offsetWidth
     gElCanvas.height = elContainer.offsetHeight
 }
+
+function renderEmojis() {
+
+    const emojis = getEmojis()
+
+    var strHtml = `<ul class="emoji-list">`
+    console.log(emojis)
+
+    strHtml += emojis.map(emoji =>
+        `<li onclick="onEmojiClick(this)">${emoji}</li>`
+    )
+
+    strHtml += `</ul>`
+    console.log(strHtml)
+    document.querySelector('.emoji-box').innerHTML = strHtml
+}
+
 
 function renderTxtBox() {
     const memeLines = getCurrLine().txt
@@ -57,7 +75,6 @@ function drawText(txtInfo, x, y) {
     gCtx.font = txtInfo.size.toString() + 'px Arial'
 
     gCtx.textAlign = txtInfo.align
-    // gCtx.textBaseline = 'top';
 
     let measures = gCtx.measureText(memeTxt);
     let height = measures.actualBoundingBoxAscent + measures.actualBoundingBoxDescent;
@@ -69,12 +86,24 @@ function drawText(txtInfo, x, y) {
     gCtx.fillText(memeTxt, x, y)
 
     // gCtx.strokeRect(x, y, measures.width, height + 8)
-    if (txtInfo.isMarked) { if (txtInfo.align === 'left') gCtx.strokeRect(x, y, measures.width, height + 8) }
-    if (txtInfo.isMarked) { if (txtInfo.align === 'center') gCtx.strokeRect(x - (measures.width / 2), y-measures.width, measures.width, height + 8) }
+    // if (txtInfo.isMarked) {
+    // gCtx.fillStyle = '#ff0'
+    // gCtx.fillRect(x, y, measures.width, height)
+    //     if (txtInfo.align === 'left') gCtx.strokeRect(x, y, measures.width, height + 8)
+    //     else if (txtInfo.align === 'center') gCtx.strokeRect(x - (measures.width / 2), y - measures.width, measures.width, height + 8)
+    // }
 }
 
 function onLineMove(isUp) {
     // (isUp)
+}
+
+function onFontChange() {
+    //open model change font
+}
+
+function onRndImgPick() {
+    //pick a rnd img and change to meme page
 }
 
 function onSetLineTxt(el) {
@@ -137,10 +166,10 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
+    console.log(pos)
     if (!isInTxtArea(pos)) return
     gMousePos = pos
     renderMeme()
-
 }
 
 function onMove(ev) {
@@ -178,6 +207,10 @@ function getEvPos(ev) {
 
 //txt test
 
+function onEmojiClick(btn){
+    //pick emoji add as aline and render to canvas
+
+}
 
 function onAddLine() {
     addLine(gCanavsCenter)

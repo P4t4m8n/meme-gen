@@ -22,3 +22,7 @@ function onImgClick(imgId) {
     setImg(imgId)
     changePage('Memes')
 }
+
+function onRndImgPick() {
+    //pick a rnd img and change to meme page
+}

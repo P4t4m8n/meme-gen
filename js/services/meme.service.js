@@ -21,11 +21,10 @@ _createImges()
 function addLine(pos = { x: 200, y: 200 }, txt = 'enter meme', size = 48, color = 'red', txtWidth = 5, txtHeight = 5, isMarked = true, isClicked = false, align = 'center') {
     if (gMeme.lines.length > 0) setIsMarked(false)
     gCurrLine = gMeme.lines.push({ pos, txt, size, color, txtWidth: txtWidth, txtHeight, isMarked, isClicked, align }) - 1
-   
+
 }
 
 function isInTxtArea(clickedPos) {
-
 
     const x = clickedPos.x
     const y = clickedPos.y
@@ -35,10 +34,22 @@ function isInTxtArea(clickedPos) {
         const lineHeight = line.txtHeight
         const linePos = line.pos
 
-        if (x <= linePos.x + lineLength && x >= linePos.x && y <= linePos.y + lineHeight &&
-            y >= linePos.y - lineHeight) {
-            return true
+        var boxSize = lineLength * lineHeight
+        var boxCenter = line.pos
+
+
+        if (line.align === 'left') {
+            boxCenter = {
+                x: (linePos.x + linePos.x + lineLength) / 2, y: (linePos.y + linePos.y + lineHeight) / 2
+            }
         }
+        if (line.align === 'right') {
+            boxCenter = { x: (linePos.x + linePos.x - lineLength) / 2, y: (linePos.y + linePos.y + lineHeight) / 2 }
+        }
+
+        var distance = ((x - boxCenter.x) ** 2 + (y - boxCenter.y) ** 2) ** 0.5
+        line.center = boxCenter
+        return boxSize >= distance
     })
 
     if (isInIdx >= 0) {
