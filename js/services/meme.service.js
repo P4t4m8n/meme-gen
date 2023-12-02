@@ -8,7 +8,7 @@ var gImgs
 var gCurrImg
 var gCurrPageIdx = 0
 var gCurrLine = 0
-var gFilterBy = 'All'
+var gFilterBy = ''
 
 var gKeywords = []
 
@@ -23,38 +23,39 @@ var gMeme = {
 _createImges()
 _createKeywords()
 
-function addLine(pos = { x: 200, y: 200 }, txt = 'enter meme', size = 48, color = 'red', txtWidth = 5, txtHeight = 5, isMarked = true, isClicked = false, align = 'center') {
-    if (gMeme.lines.length > 0) setIsMarked(false)
-    gCurrLine = gMeme.lines.push({ pos, txt, size, color, txtWidth: txtWidth, txtHeight, isMarked, isClicked, align }) - 1
 
-}
+//bollean func
 
 function isInTxtArea(clickedPos) {
 
+    console.log('hi')
     const x = clickedPos.x
     const y = clickedPos.y
 
     var isInIdx = gMeme.lines.findIndex(line => {
+        console.log(x)
+        console.log(y)
+        console.log(clickedPos)
+        console.log(line)
         const lineLength = line.txtWidth
         const lineHeight = line.txtHeight
         const linePos = line.pos
 
-        var boxSize = lineLength * lineHeight
-        var boxCenter = line.pos
 
 
         if (line.align === 'left') {
-            boxCenter = {
-                x: (linePos.x + linePos.x + lineLength) / 2, y: (linePos.y + linePos.y + lineHeight) / 2
-            }
+            if (x >= linePos.x && x <= linePos.x + lineLength && y >= linePos.y - (lineLength / 2) && y <= linePos.y + (lineLength / 2))
+                return true
         }
-        if (line.align === 'right') {
-            boxCenter = { x: (linePos.x + linePos.x - lineLength) / 2, y: (linePos.y + linePos.y + lineHeight) / 2 }
+        else if (line.align === 'right') {
+            if (x <= linePos.x && x >= linePos.x - lineLength && y >= linePos.y - (lineLength / 2) && y <= linePos.y + (lineLength / 2))
+                return true
+        }
+        else {
+            if (x >= linePos.x - (lineLength / 2) && x <= linePos.x + (lineLength / 2) && y >= linePos.y - (lineHeight / 2) && y <= linePos.y + (lineHeight / 2))
+                return true
         }
 
-        var distance = ((x - boxCenter.x) ** 2 + (y - boxCenter.y) ** 2) ** 0.5
-        line.center = boxCenter
-        return boxSize >= distance
     })
 
     if (isInIdx >= 0) {
@@ -64,7 +65,8 @@ function isInTxtArea(clickedPos) {
         setIsMarked(true)
         setIsClicked(true)
         return true
-    }
+    } console.log(gMeme)
+
     return false
 }
 
@@ -72,12 +74,13 @@ function isLineClicked(idx = gCurrLine) {
     return gMeme.lines[idx].isClicked
 }
 
-function filterBy(key) {
-    gFilterBy = key
-    var idx = gKeywords.findIndex(keyword => keyword.key === key)
-    gKeywords[idx].size++
-    _saveItemsToStorge(STORAGE_KEY_WORDS,gKeywords)
-    return gFilterBy
+//add remove
+
+function addLine(pos = { x: 150, y: 75 }, txt = 'enter meme', size = 48, color = 'red', txtWidth = 5, txtHeight = 5, isMarked = true, isClicked = false, align = 'center') {
+    if (gMeme.lines.length > 0) setIsMarked(false)
+    gCurrLine = gMeme.lines.push({ pos, txt, size, color, txtWidth: txtWidth, txtHeight, isMarked, isClicked, align }) - 1
+    console.log(gMeme)
+
 
 }
 
@@ -106,6 +109,7 @@ function addKeyword(keyword) {
     saveToStorage(STORAGE_KEY_WORDS, gKeywords)
 
 }
+
 //getters
 
 function getPos(idx = gCurrLine) {
@@ -116,11 +120,10 @@ function getPos(idx = gCurrLine) {
 function getImgs() {
     var imges = gImgs
 
-    if (gFilterBy !== 'All')
-      var  imges = gImgs.filter((img) => {
-
+    if (gFilterBy !== '')
+        var imges = gImgs.filter((img) => {
             return img.keywords.find(keyword => {
-                return keyword.key === gFilterBy
+                return keyword.key.startsWith(gFilterBy)
             })
         })
 
@@ -157,9 +160,23 @@ function setTxtAlign(align, idx = gCurrLine) {
     gMeme.lines[idx].align = align
 }
 
-function setIsMarked(isMarked, idx = gCurrLine) {
-    gMeme.lines[idx].isMarked = isMarked
+function setFilterBy(key) {
+    gFilterBy = key
+    if (gFilterBy === '') return
+    var idx = gKeywords.findIndex(keyword => keyword.key === gFilterBy)
+    if (idx < 0) return gFilterBy
+    gKeywords[idx].size++
+    _saveItemsToStorge(STORAGE_KEY_WORDS, gKeywords)
+    return gFilterBy
+
 }
+
+function setIsMarked(isMarked, idx = gCurrLine) {
+
+    gMeme.lines[idx].isMarked = isMarked
+    console.log(gMeme)
+}
+
 function setPos(pos, idx = gCurrLine) {
 
     gMeme.lines[idx].pos.x += pos.x
@@ -197,6 +214,15 @@ function setFontSize(size, idx = gCurrLine) {
     gMeme.lines[idx].size = size
 }
 
+function setLineMove(isUp) {
+    const direction = (isUp) ? -3 : 3
+    // if (gMeme.lines[gCurrLine].pos.y === 400 || gMeme.lines[gCurrLine].pos.y === 0)
+        gMeme.lines[gCurrLine].pos.y += direction
+
+    return direction
+
+}
+
 //private func
 
 function _createImges() {
@@ -214,7 +240,7 @@ function _createImges() {
         })
 
     }
-    _saveItemsToStorge(STORAGE_KEY_IMG,gImgs)
+    _saveItemsToStorge(STORAGE_KEY_IMG, gImgs)
 }
 
 function _createKeywords() {
@@ -224,11 +250,11 @@ function _createKeywords() {
     gKeywords = []
 
     gKeywords = [{ key: 'trump', size: 36 }, { key: 'dogs', size: 42 }, { key: 'funny', size: 30 }]
-    _saveItemsToStorge(STORAGE_KEY_WORDS,gKeywords)
+    _saveItemsToStorge(STORAGE_KEY_WORDS, gKeywords)
 
 }
 
-function _saveItemsToStorge(key,arr) {
+function _saveItemsToStorge(key, arr) {
     saveToStorage(key, arr)
 }
 

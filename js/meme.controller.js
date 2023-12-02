@@ -29,7 +29,6 @@ function renderMeme() {
             requestAnimationFrame(animate)
         }
         animate()
-
     }
     imgObj.src = imgUrl
     resizeCanvas()
@@ -92,14 +91,15 @@ function drawText(txtInfo, x, y) {
 }
 
 function onLineMove(isUp) {
-    // (isUp)
+    setLineMove(isUp)
+    renderMeme()
 }
 
 function OnAddKeyword() {
 
     addKeyword(prompt('enter'))
-    
-   
+
+
 }
 
 function onFontChange() {
@@ -218,9 +218,23 @@ function onAddLine() {
     renderMeme()
 }
 
-function keyUpHandler(event) {
+function keyUpHandler(ev) {
     if (gTxtBoxFoucs) return
-    const keyPress = event.key
+    ev.preventDefault()
+    const keyPress = ev.key
+
+    if (keyPress === 'ArrowLeft' || keyPress === 'ArrowRight') return
+
+    if (keyPress === 'ArrowUp') {
+        onLineMove(true)
+        return
+    }
+    if (keyPress === 'ArrowDown') {
+        onLineMove(false)
+        return
+    }
+
+
     if (keyPress === 'Backspace') {
         remomveLetter()
     }

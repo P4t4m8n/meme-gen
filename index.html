@@ -22,17 +22,16 @@
 
         <section class="galary">
             <header>
-                <form class="sort-by">
-                    <input list="key-words" name="key-words" id="key-words"">
-                    <datalist id=" key-words">
-                    </datalist>
+                <div class="sort-by">
+                    <div class="list">
+                        <input class="keyword-choice" list="key-words" oninput="onKeyword(this,true)">
+                        <datalist id="key-words" class="keywords-list">
+                        </datalist>
+                    </div>
                     <div class="keyword-con"></div>
-
-                </form>
-
+                </div>
             </header>
             <div class="container"></div>
-
         </section>
 
         <section class="main-body-meme hidden">
@@ -41,8 +40,9 @@
                     <section class="txt-btn">
                         <div>
                             <button onclick="onAddLine()">Add Line</button>
-                            <button onclick="onLineMove(true)">up</button>
-                            <button onclick="onLineMove(false)">down</button>
+                            <button onclick="onLineMove(true)">🡩</button>
+                            <button onclick="onLineMove(false)">🡫</button>
+
                             <button>delete</button>
                         </div>
                         <div>
@@ -94,10 +94,6 @@
             <input id="file-input" type="file" hidden />
         </div>
     </div>
-
-
-
-
 
     <script src="js/services/storage.service.js"></script>
     <script src="js/services/util.service.js"></script>

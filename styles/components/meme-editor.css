@@ -30,11 +30,16 @@
 
 
 .canvas-container {
-    width: 400px !important;
-    height: 400px !important;
- 
+    /* max-width: 400px !important;
+    max-height: 400px !important;
+    min-width: 50%;
+    min-height: 50%; */
+
     /* width: 100%; */
     /* align-content: space-between; */
+
+    width: 400px !important;
+    height: 400px !important;
 }
 
 .canvas-overlay {
@@ -104,7 +109,7 @@ canvas {
 
 .side-menu-meme {
     background: whitesmoke;
-    
+
 }
 
 .txt-boxs {
@@ -127,6 +132,6 @@ canvas {
     place-items: center;
 }
 
-.emoji-box ul li{
+.emoji-box ul li {
     display: inline;
 }
