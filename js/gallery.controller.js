@@ -3,7 +3,7 @@
 // rendering func
 function renderGallery() {
 
-    
+
 
     var strHtml
     var imgs = getImgs()
@@ -25,7 +25,7 @@ function renderSortByKeywords() {
 
     var strHtml = `<ul class="key-words"> `
 
-    strHtml += keywords.map(keyword => `<li class="key-word" style="font-size:${keyword.size}px" 
+    strHtml += keywords.map(keyword => `<li class="key-word" style="font-size:${keyword.size}px"  
                                         onclick="onKeyword(this,false)">${keyword.key}</li>`).join('')
 
     strHtml += `</ul>`
@@ -49,6 +49,7 @@ function onImgClick(imgId) {
 //filter
 
 function onKeyword(el, isList) {
+    
     const key = (isList) ? el.value : el.innerText
 
     if (!isList) document.querySelector('.keyword-choice').value = key
