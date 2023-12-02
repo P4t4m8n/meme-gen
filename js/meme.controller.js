@@ -2,21 +2,21 @@
 
 var gElCanvas = document.querySelector('canvas')
 var gCtx = gElCanvas.getContext('2d')
-var gLineIdx = 1
 var gCanavsCenter = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
 var gMousePos
 var gTxtBoxFoucs = false
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
-const NO_IMG_SELECTED = {
-    txtInfo: {
-        txt: 'NO MEME SELECTED',
-        color: 'red',
-        size: 60,
-        font: 'inter',
-        align: 'center',
-    }
-}
+
+// const NO_IMG_SELECTED = {
+//     txtInfo: {
+//         txt: 'NO MEME SELECTED',
+//         color: 'red',
+//         size: 60,
+//         font: 'inter',
+//         align: 'center',
+//     }
+// }
 
 
 
@@ -25,7 +25,6 @@ const NO_IMG_SELECTED = {
 function renderMeme() {
     if (!getCurrImg()) {
         setMeme()
-        console.log('ttt')
     }
     const imgUrl = getCurrImg().url
     var imgContent = getMeme().lines
@@ -50,11 +49,7 @@ function renderMeme() {
     renderTxtBox()
 }
 
-function resizeCanvas() {
-    const elContainer = document.querySelector('.canvas-container')
-    gElCanvas.width = elContainer.offsetWidth
-    gElCanvas.height = elContainer.offsetHeight
-}
+
 
 function renderEmojis() {
 
@@ -84,7 +79,13 @@ function renderFontsList() {
     document.querySelector('.font-list').innerHTML = strHtml
 }
 
-//txt manger
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container')
+    gElCanvas.width = elContainer.offsetWidth
+    gElCanvas.height = elContainer.offsetHeight
+}
+
+//line creator
 
 function drawText(lineInfo, x, y) {
 
@@ -99,12 +100,12 @@ function drawText(lineInfo, x, y) {
     let measures = gCtx.measureText(memeTxt);
     let height = measures.actualBoundingBoxAscent + measures.actualBoundingBoxDescent;
 
-
     setLineWidth(measures.width)
     setLineHeight(height)
 
     gCtx.fillText(memeTxt, x, y)
 
+    //need to fix border around txt
     // gCtx.strokeRect(x, y, measures.width, height + 8)
     // if (txtInfo.isMarked) {
     // gCtx.fillStyle = '#ff0'
@@ -121,18 +122,16 @@ function onEmojiClick(el) {
     else setLineTxt(emoji, false)
     renderMeme()
 }
-function onLineMove(isUp) {
-    setLineMove(isUp)
+
+function onAddLine() {
+    addLine(gCanavsCenter)
     renderMeme()
 }
 
-function OnAddKeyword() {
-    addKeyword(prompt('enter'))
-}
+//line editor
 
-function onSetLineTxt(el) {
-    const txt = el.value
-    setLineTxt(txt, true)
+function onLineMove(isUp) {
+    setLineMove(isUp)
     renderMeme()
 }
 
@@ -152,9 +151,19 @@ function onSetFontSize(size) {
     renderMeme()
 }
 
-function onBoxFoucs() {
-    gTxtBoxFoucs = !gTxtBoxFoucs
+function onRemoveLine() {
+    removeLine()
+    renderMeme()
 }
+
+//txt editor
+
+function onSetLineTxt(el) {
+    const txt = el.value
+    setLineTxt(txt, true)
+    renderMeme()
+}
+
 
 
 //Listeners
@@ -165,8 +174,6 @@ function addListeners() {
     addOpenFontModalListener()
     addSaveClickListener()
     addStorgeOpenModalListener()
-
-
 
     window.addEventListener("keyup", keyUpHandler, true)
     window.addEventListener('resize', () => {
@@ -234,7 +241,7 @@ function addTouchListeners() {
     gElCanvas.addEventListener('touchend', onUp)
 }
 
-//mouse and touch events
+//events
 
 function onDown(ev) {
     const pos = getEvPos(ev)
@@ -258,33 +265,6 @@ function onUp() {
     setIsClicked(false)
 }
 
-function getEvPos(ev) {
-    let pos = {
-        x: ev.offsetX,
-        y: ev.offsetY,
-    }
-
-    if (TOUCH_EVS.includes(ev.type)) {
-        ev.preventDefault()
-        ev = ev.changedTouches[0]
-        pos = {
-            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
-        }
-    }
-    return pos
-}
-
-
-
-//txt test
-
-
-function onAddLine() {
-    addLine(gCanavsCenter)
-    renderMeme()
-}
-
 function keyUpHandler(ev) {
     if (gTxtBoxFoucs) return
     ev.preventDefault()
@@ -301,26 +281,32 @@ function keyUpHandler(ev) {
         return
     }
 
-
     if (keyPress === 'Backspace') {
         remomveLetter()
     }
     else
         setLineTxt(keyPress, false)
     renderMeme()
-
-
 }
 
-function onTxtAlign(align) {
+//canvas positioning
 
+function getEvPos(ev) {
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
+
+    if (TOUCH_EVS.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+        }
+    }
+    return pos
 }
-
-function onRemoveLine() {
-    removeLine()
-    renderMeme()
-}
-
 
 //img download
 
@@ -344,4 +330,14 @@ function loadImageFromInput(ev, onImageReady) {
         img.onload = () => onImageReady(img)
     }
     reader.readAsDataURL(ev.target.files[0])
+}
+
+//general  func
+
+function onBoxFoucs() {
+    gTxtBoxFoucs = !gTxtBoxFoucs
+}
+
+function _OnAddKeyword() {
+    addKeyword(prompt('enter'))
 }

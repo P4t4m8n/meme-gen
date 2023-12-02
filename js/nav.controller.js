@@ -11,8 +11,8 @@ function OnChangePage(btn) {
 
 function changePage(page) {
 
-    var memePage = document.querySelector('.main-body-meme')
     var galaryPage = document.querySelector('.galary')
+    var memePage = document.querySelector('.main-body-meme')
 
     if (page === 'Galary') {
         memePage.classList.add('hidden')
@@ -24,10 +24,10 @@ function changePage(page) {
 
         // var verification = getMemes()
         // console.log(verification)
-        // if (!verification) {
-        //     alert('No saved memes, pick one')
-        //     return
-        // }
+        if (!getMemes() && !getMeme()) {
+            alert('No saved memes, pick one')
+            return
+        }
         galaryPage.classList.add('hidden')
         memePage.classList.remove('hidden')
         renderMeme()

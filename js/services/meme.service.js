@@ -27,11 +27,12 @@ function saveCurrMeme() {
     if (!gMemes) gMemes = []
 
     var memeSaveIdx = getMemeIdxById(gMeme.id)
+
     if (memeSaveIdx < 0) gMemes.push(gMeme)
     else gMemes[memeSaveIdx] = gMeme
 
     _saveItemsToStorge(STORAGE_KEY_MEMES, gMemes)
-    
+
     return true
 }
 
@@ -49,15 +50,18 @@ function isInTxtArea(clickedPos) {
         const linePos = line.pos
 
         if (line.align === 'left') {
-            if (x >= linePos.x && x <= linePos.x + lineLength && y >= linePos.y - (lineLength / 2) && y <= linePos.y + (lineLength / 2))
+            if (x >= linePos.x && x <= linePos.x + lineLength &&
+                y >= linePos.y - (lineLength / 2) && y <= linePos.y + (lineLength / 2))
                 return true
         }
         else if (line.align === 'right') {
-            if (x <= linePos.x && x >= linePos.x - lineLength && y >= linePos.y - (lineLength / 2) && y <= linePos.y + (lineLength / 2))
+            if (x <= linePos.x && x >= linePos.x - lineLength &&
+                y >= linePos.y - (lineLength / 2) && y <= linePos.y + (lineLength / 2))
                 return true
         }
         else {
-            if (x >= linePos.x - (lineLength / 2) && x <= linePos.x + (lineLength / 2) && y >= linePos.y - (lineHeight / 2) && y <= linePos.y + (lineHeight / 2))
+            if (x >= linePos.x - (lineLength / 2) && x <= linePos.x + (lineLength / 2) &&
+                y >= linePos.y - (lineHeight / 2) && y <= linePos.y + (lineHeight / 2))
                 return true
         }
     })
@@ -142,6 +146,7 @@ function getPos(idx = gCurrLine) {
 function getMemeIdxById(memeId) {
     return gMemes.findIndex(meme => meme.id === memeId)
 }
+
 function getImgs() {
     var imges = gImgs
 
@@ -164,9 +169,9 @@ function getImgById(imgId) {
 }
 
 function getMeme() {
-    if (gMeme.lines.length === 0) {
-        addLine()
-    }
+    // if (gMeme.lines.length === 0) {
+    //     addLine()
+    // }
     return gMeme
 }
 
