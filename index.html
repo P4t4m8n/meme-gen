@@ -42,8 +42,7 @@
                             <button onclick="onAddLine()">Add Line</button>
                             <button onclick="onLineMove(true)">🡩</button>
                             <button onclick="onLineMove(false)">🡫</button>
-
-                            <button>delete</button>
+                            <button onclick="onRemoveLine()">delete</button>
                         </div>
                         <div>
                             <label>
@@ -57,10 +56,25 @@
                             <button onclick="onSetAlign(this)">left</button>
                             <button onclick="onSetAlign(this)">center</button>
                             <button onclick="onSetAlign(this)">right</button>
-                            <button onclick="onFontChange()">Font</button>
+                            <dialog class="font-change">
+                                <form>
+                                    <label>
+                                        Pick a Font
+                                        <select class="font-list">
+
+                                        </select>
+                                    </label>
+                                    <div>
+                                        <button value="cancel" formmethod="dialog">Cancel</button>
+                                        <button class="confirm-btn" value="default">Confirm</button>
+                                    </div>
+                                </form>
+                            </dialog>
+                            <button class="open-font-modal-btn" ">Font</button>
+                            <output></output>
                         </div>
                     </section>
-                    <section class="add-imoji">
+                    <section class=" add-imoji">
 
                     </section>
                 </div>
@@ -80,8 +94,12 @@
 
                 <div class="emoji-box">
                 </div>
+                
                 <section class="file-manger">
-                    <button>save</button>
+                    <button class="save-meme">save</button>
+                    <div class="savedMemes">
+                        <button class="next-meme">Next saved meme</button>
+                    </div>
                     <div class="download">
                         <a href="#" class="btn" onclick="downloadMeme(this)" download="my-img.jpg">download</a>
                     </div>

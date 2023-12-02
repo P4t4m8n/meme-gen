@@ -14,7 +14,6 @@ function renderGallery() {
      data-keywords=${img.keywords}>`).join('')
 
     document.querySelector('.container').innerHTML = upLoadHtml + strHtml
-    console.log(imgs)
     renderSortByKeywords()
 }
 
@@ -29,10 +28,7 @@ function renderSortByKeywords() {
 
     var strHtmlList = `<option value="All"></option>`
     strHtmlList += keywords.map(keywords => `<option value="${keywords.key}">`).join('')
-    console.log(strHtmlList)
-    console.log(keywords)
-
-
+  
     document.querySelector('.keyword-con').innerHTML = strHtml
     document.querySelector('.keywords-list').innerHTML = strHtmlList
 
@@ -44,13 +40,13 @@ function renderSortByKeywords() {
 //img picker
 
 function onImgClick(imgId) {
-    setImg(imgId)
+    addNewMeme(imgId)
     changePage('Memes')
 }
 
 function onRndPick() {
     const rndId = getRandomInt(0, 17)
-    setImg(rndId)
+    addNewMeme(rndId)
     changePage('Memes')
 }
 

@@ -6,17 +6,32 @@ var gLineIdx = 1
 var gCanavsCenter = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
 var gMousePos
 var gTxtBoxFoucs = false
+
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
+const NO_IMG_SELECTED = {
+    txtInfo: {
+        txt: 'NO MEME SELECTED',
+        color: 'red',
+        size: 60,
+        font: 'inter',
+        align: 'center',
+    }
+}
 
 
 
 //render func
 
 function renderMeme() {
+    if (!getCurrImg()) {
+        setMeme()
+        console.log('ttt')
+    }
     const imgUrl = getCurrImg().url
     var imgContent = getMeme().lines
 
     var imgObj = new Image()
+
     imgObj.onload = function () {
         function animate() {
             gCtx.drawImage(imgObj, 0, 0, gElCanvas.width, gElCanvas.height)
@@ -33,7 +48,6 @@ function renderMeme() {
     imgObj.src = imgUrl
     resizeCanvas()
     renderTxtBox()
-    renderEmojis()
 }
 
 function resizeCanvas() {
@@ -62,13 +76,23 @@ function renderTxtBox() {
     document.querySelector('.meme-txt').value = memeLines
 }
 
+function renderFontsList() {
+    const fonts = getFonts()
+    var strHtml = `<option value="default"></option>`
+    strHtml += fonts.map(font => `<option value="${font}">${font}</option>`).join('')
+
+    document.querySelector('.font-list').innerHTML = strHtml
+}
+
 //txt manger
 
-function drawText(txtInfo, x, y) {
+function drawText(lineInfo, x, y) {
+
+    var txtInfo = lineInfo
     var memeTxt = txtInfo.txt
 
     gCtx.fillStyle = txtInfo.color
-    gCtx.font = txtInfo.size.toString() + 'px Arial'
+    gCtx.font = txtInfo.size.toString() + 'px ' + txtInfo.font
 
     gCtx.textAlign = txtInfo.align
 
@@ -90,24 +114,20 @@ function drawText(txtInfo, x, y) {
     // }
 }
 
+function onEmojiClick(el) {
+    const emoji = el.innerText
+    var isNewLine = confirm('New line?')
+    if (isNewLine) addLine(gCanavsCenter, emoji)
+    else setLineTxt(emoji, false)
+    renderMeme()
+}
 function onLineMove(isUp) {
     setLineMove(isUp)
     renderMeme()
 }
 
 function OnAddKeyword() {
-
     addKeyword(prompt('enter'))
-
-
-}
-
-function onFontChange() {
-    //open model change font
-}
-
-function onRndImgPick() {
-    //pick a rnd img and change to meme page
 }
 
 function onSetLineTxt(el) {
@@ -142,6 +162,11 @@ function onBoxFoucs() {
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
+    addOpenFontModalListener()
+    addSaveClickListener()
+    addStorgeOpenModalListener()
+
+
 
     window.addEventListener("keyup", keyUpHandler, true)
     window.addEventListener('resize', () => {
@@ -149,6 +174,52 @@ function addListeners() {
         const gCanavsCenter = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
         renderMeme()
     })
+}
+
+function addSaveClickListener() {
+    const saveMeme = document.querySelector('.save-meme')
+    saveMeme.addEventListener('click', () => {
+        var isSaved = saveCurrMeme()
+    })
+}
+
+function addStorgeOpenModalListener() {
+    var elOpenBtn = document.querySelector('.next-meme')
+    elOpenBtn.addEventListener('click', () => {
+        setCurrMeme()
+        renderMeme()
+    })
+
+}
+
+function addOpenFontModalListener() {
+
+    renderFontsList()
+
+    const elFontChange = document.querySelector('.font-change')
+    const elOpenModel = document.querySelector('.open-font-modal-btn')
+    const elSelectFont = document.querySelector('.font-list')
+    const elConfirmBtn = document.querySelector('.confirm-btn')
+
+
+    elOpenModel.addEventListener('click', () => {
+        elFontChange.showModal()
+    })
+
+    elSelectFont.addEventListener('change', (elFont) => {
+        elConfirmBtn.value = elSelectFont.value
+    })
+
+    elFontChange.addEventListener("close", (elFont) => {
+        setFont(elFontChange.returnValue)
+    })
+
+    elConfirmBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        elFontChange.close(elSelectFont.value);
+    })
+
+    renderMeme()
 }
 
 function addMouseListeners() {
@@ -208,10 +279,6 @@ function getEvPos(ev) {
 
 //txt test
 
-function onEmojiClick(btn) {
-    //pick emoji add as aline and render to canvas
-
-}
 
 function onAddLine() {
     addLine(gCanavsCenter)
@@ -247,6 +314,11 @@ function keyUpHandler(ev) {
 
 function onTxtAlign(align) {
 
+}
+
+function onRemoveLine() {
+    removeLine()
+    renderMeme()
 }
 
 

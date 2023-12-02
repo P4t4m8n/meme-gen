@@ -21,3 +21,23 @@
     font-weight: bold;
     src: url(/fonts/inter/Inter-SemiBold.ttf);
 }
+
+@font-face {
+    font-family: impact;
+    src: url(/fonts/impact/impact.ttf);
+}
+
+@font-face {
+    font-family: impacted;
+    src: url(/fonts/impact/impacted.ttf);
+}
+
+@font-face {
+    font-family: unicodimpact;
+    src: url(/fonts/impact/iunicode.mpact.ttf);
+}
+
+@font-face {
+    font-family: ruluko;
+    src: url(/fonts/ruluko/Ruluko-Regular.ttf);
+}

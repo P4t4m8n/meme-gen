@@ -21,10 +21,17 @@ function changePage(page) {
     }
 
     else if (page === 'Memes') {
+
+        // var verification = getMemes()
+        // console.log(verification)
+        // if (!verification) {
+        //     alert('No saved memes, pick one')
+        //     return
+        // }
         galaryPage.classList.add('hidden')
         memePage.classList.remove('hidden')
         renderMeme()
         addListeners()
-        
+        renderEmojis()
     }
 }

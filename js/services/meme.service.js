@@ -1,47 +1,52 @@
 'use strcit'
 
 const STORAGE_KEY_IMG = 'imgDB'
-const STORAGE_KEY_MEME = 'memDB'
+const STORAGE_KEY_MEMES = 'memesDB'
 const STORAGE_KEY_WORDS = 'keywordsDB'
 
 var gImgs
 var gCurrImg
 var gCurrPageIdx = 0
+var gCurrMemeIdx = 0
 var gCurrLine = 0
 var gFilterBy = ''
+var gMeme
 
 var gKeywords = []
+var gDeletedLines = []
+var gMemes
+var gFonts = ['impact', 'impacted', '.unicode.impacted', 'ruluko']
 
-var gMeme = {
-    selectedImgId: 0,
-    memeUrl: '',
-    selectedLineIdx: 0,
-    lines: []
-
-}
-
+_createMemes()
 _createImges()
 _createKeywords()
 
+//user storge
 
-//bollean func
+function saveCurrMeme() {
+    if (!gMemes) gMemes = []
+
+    var memeSaveIdx = getMemeIdxById(gMeme.id)
+    if (memeSaveIdx < 0) gMemes.push(gMeme)
+    else gMemes[memeSaveIdx] = gMeme
+
+    _saveItemsToStorge(STORAGE_KEY_MEMES, gMemes)
+    
+    return true
+}
+
+//boolean func
 
 function isInTxtArea(clickedPos) {
 
-    console.log('hi')
     const x = clickedPos.x
     const y = clickedPos.y
 
     var isInIdx = gMeme.lines.findIndex(line => {
-        console.log(x)
-        console.log(y)
-        console.log(clickedPos)
-        console.log(line)
+
         const lineLength = line.txtWidth
         const lineHeight = line.txtHeight
         const linePos = line.pos
-
-
 
         if (line.align === 'left') {
             if (x >= linePos.x && x <= linePos.x + lineLength && y >= linePos.y - (lineLength / 2) && y <= linePos.y + (lineLength / 2))
@@ -55,7 +60,6 @@ function isInTxtArea(clickedPos) {
             if (x >= linePos.x - (lineLength / 2) && x <= linePos.x + (lineLength / 2) && y >= linePos.y - (lineHeight / 2) && y <= linePos.y + (lineHeight / 2))
                 return true
         }
-
     })
 
     if (isInIdx >= 0) {
@@ -65,7 +69,7 @@ function isInTxtArea(clickedPos) {
         setIsMarked(true)
         setIsClicked(true)
         return true
-    } console.log(gMeme)
+    }
 
     return false
 }
@@ -76,12 +80,18 @@ function isLineClicked(idx = gCurrLine) {
 
 //add remove
 
-function addLine(pos = { x: 150, y: 75 }, txt = 'enter meme', size = 48, color = 'red', txtWidth = 5, txtHeight = 5, isMarked = true, isClicked = false, align = 'center') {
+function addNewMeme(imgId) {
+    gCurrImg = getImgById(imgId)
+    var imgUrl = gCurrImg.url
+    setImg(imgId)
+    gMeme = _createMeme(imgId, imgUrl)
+    addLine()
+}
+
+function addLine(pos = { x: 150, y: 75 }, txt = 'enter meme', size = 48, color = 'red', txtWidth = 5, txtHeight = 5, isMarked = true, isClicked = false, align = 'center', font = 'impact') {
     if (gMeme.lines.length > 0) setIsMarked(false)
-    gCurrLine = gMeme.lines.push({ pos, txt, size, color, txtWidth: txtWidth, txtHeight, isMarked, isClicked, align }) - 1
-    console.log(gMeme)
 
-
+    gCurrLine = gMeme.lines.push({ pos, txt, size, color, txtWidth: txtWidth, txtHeight, isMarked, isClicked, align, }) - 1
 }
 
 function remomveLetter(idx = gCurrLine) {
@@ -110,13 +120,28 @@ function addKeyword(keyword) {
 
 }
 
+function removeLine() {
+    const deletedLine = gMeme.lines.splice(gCurrLine, 1)
+    gDeletedLines.push(deletedLine)
+    if (gMeme.lines.length > 0) gCurrLine = 0
+    return gDeletedLines
+
+}
+
 //getters
+
+function getFonts() {
+    return gFonts
+}
 
 function getPos(idx = gCurrLine) {
 
     gMeme.lines[idx].pos
 }
 
+function getMemeIdxById(memeId) {
+    return gMemes.findIndex(meme => meme.id === memeId)
+}
 function getImgs() {
     var imges = gImgs
 
@@ -153,8 +178,34 @@ function getKeywords() {
     return gKeywords
 }
 
+function getMemes() {
+    return gMemes
+}
 
 //setters
+
+function setMeme() {
+    gMeme = gMemes[0]
+    setImg(gMeme.selectedImgId)
+}
+
+function setCurrMeme(isUp = true) {
+
+    if (isUp) gCurrMemeIdx++
+    else gCurrMemeIdx--
+
+    if (gCurrMemeIdx >= gMemes.length) gCurrMemeIdx = 0
+    if (gCurrMemeIdx < 0) gCurrMemeIdx = gMemes.length - 1
+
+    gMeme = gMemes[gCurrMemeIdx]
+    setImg(gMeme.selectedImgId)
+
+    return gCurrMemeIdx
+}
+
+function setFont(font) {
+    gMeme.lines[gCurrLine].font = font
+}
 
 function setTxtAlign(align, idx = gCurrLine) {
     gMeme.lines[idx].align = align
@@ -172,9 +223,7 @@ function setFilterBy(key) {
 }
 
 function setIsMarked(isMarked, idx = gCurrLine) {
-
     gMeme.lines[idx].isMarked = isMarked
-    console.log(gMeme)
 }
 
 function setPos(pos, idx = gCurrLine) {
@@ -203,6 +252,7 @@ function setLineWidth(width, idx = gCurrLine) {
 
 function setImg(imgId) {
     gCurrImg = getImgById(imgId)
+    return gCurrImg
 }
 
 function setColor(color, idx = gCurrLine) {
@@ -217,7 +267,7 @@ function setFontSize(size, idx = gCurrLine) {
 function setLineMove(isUp) {
     const direction = (isUp) ? -3 : 3
     // if (gMeme.lines[gCurrLine].pos.y === 400 || gMeme.lines[gCurrLine].pos.y === 0)
-        gMeme.lines[gCurrLine].pos.y += direction
+    gMeme.lines[gCurrLine].pos.y += direction
 
     return direction
 
@@ -225,8 +275,20 @@ function setLineMove(isUp) {
 
 //private func
 
-function _createImges() {
+function _createMeme(selectedImgId, memeUrl) {
+    return {
+        id: makeId(),
+        selectedImgId,
+        memeUrl,
+        lines: []
+    }
+}
 
+function _createMemes() {
+    gMemes = loadFromStorage(STORAGE_KEY_MEMES)
+}
+
+function _createImges() {
     gImgs = loadFromStorage(STORAGE_KEY_IMG)
     if (gImgs && gImgs.length) return
 

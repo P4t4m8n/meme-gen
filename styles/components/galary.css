@@ -13,8 +13,18 @@
 .upload-img,
 .random-img {
     background-color: white;
-    border-radius: 30px;
+    border-radius: 0.5px;
     border: black;
+}
+
+.upload-img {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    transition: scale .2s ease-in-out;
+}
+
+.upload-img:hover {
+    scale: 1.05;
 }
 
 .galary .sort-by {
