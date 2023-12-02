@@ -10,6 +10,7 @@
     display: flex;
     padding: 1.5rem;
     width: 100%;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 50px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
     background: whitesmoke;
 }
 
@@ -38,8 +39,6 @@
     /* width: 100%; */
     /* align-content: space-between; */
 
-    width: 400px;
-    height: 400px;
 }
 
 .canvas-overlay {
@@ -56,8 +55,9 @@
 
 canvas {
     border-radius: 12px;
-    margin-inline: 1rem;
     padding: 0.5rem;
+    width: 400px;
+    height: 400px;
     border: 2px solid burlywood;
     box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
@@ -86,37 +86,50 @@ canvas {
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     outline: none;
 }
-
-.file-manger {
+.savedMemes {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding-inline: 1.5rem;
+    margin-bottom: 1rem;
+    row-gap: 1rem;
+}
+.file-manger {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
     row-gap: 1rem;
     margin-block: 1rem;
 }
 
-.file-manger button {
+.file-manger-button {
     padding: 1rem;
     font-size: 1.25rem;
     font-weight: bold;
+    width: 80%;
+    margin-inline: auto;
     font-family: Inter;
     border-radius: .5rem;
+    text-decoration: none;
+    text-align: center;
     border: 1px solid lightgray;
     outline: none;
+    display: block;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
 .side-menu-meme {
     background: whitesmoke;
-
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 }
 
+
 .txt-boxs {
-    padding-left: 0.5rem;
-    width: 50%;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding-inline: 1rem;
+    place-items: center;
+    margin-block: 1rem;
+    margin-inline: auto;
 }
 
 .txt-boxs>input {
@@ -134,4 +147,50 @@ canvas {
 
 .emoji-box ul li {
     display: inline;
+}
+
+@media only screen and (max-width:700px) {
+    .main-body-meme {
+        grid-template-columns: 100%;
+    }
+    .canvas-container {
+        margin-inline: auto;
+        width: fit-content;
+    }
+    .left {
+        display: grid;
+        grid-template-rows: minmax(max-content, 40%)  minmax(max-content, 60%);
+        height: 100%;
+    }
+    .canvas-overlay {
+
+    }
+    canvas {
+        align-self: center;
+        width: 300px;
+        height: 300px;
+    }
+    .img-control-panel button,
+     .side-menu-meme button,
+     .side-menu-meme a {
+        font-size: 0.75rem;
+    }
+
+    .file-manger-button {
+        width: inherit;
+        margin-inline: inherit;
+    }
+    .side-menu-meme {
+
+    }
+    .txt-boxs {
+        grid-template-columns: repeat(2, 1fr);
+        width: max-content;
+    }
+    .savedMemes {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-inline: 0.5rem;
+    }
 }

@@ -25,7 +25,7 @@ _createKeywords()
 
 function saveCurrMeme() {
     if (!gMemes) gMemes = []
-
+    removeAllMarked()
     var memeSaveIdx = getMemeIdxById(gMeme.id)
 
     if (memeSaveIdx < 0) gMemes.push(gMeme)
@@ -130,6 +130,10 @@ function removeLine() {
     if (gMeme.lines.length > 0) gCurrLine = 0
     return gDeletedLines
 
+}
+
+function removeAllMarked() {
+    gMeme.lines.forEach(line => line.isMarked = false)
 }
 
 //getters

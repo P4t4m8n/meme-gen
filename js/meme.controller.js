@@ -307,26 +307,13 @@ function getEvPos(ev) {
 //img download
 
 function downloadMeme(elLink) {
+    removeAllMarked()
+    renderMeme()
     const imgContent = gElCanvas.toDataURL()
     elLink.href = imgContent
 }
 
-//img upload
 
-function onImgInput(ev) {
-    loadImageFromInput(ev, renderMeme)
-}
-
-function loadImageFromInput(ev, onImageReady) {
-
-    const reader = new FileReader()
-    reader.onload = function (event) {
-        let img = new Image()
-        img.src = event.target.result
-        img.onload = () => onImageReady(img)
-    }
-    reader.readAsDataURL(ev.target.files[0])
-}
 
 //general  func
 

@@ -88,28 +88,30 @@
                 <div class="txt-boxs" onfocusin="onBoxFoucs()" onfocusout="onBoxFoucs()">
                     <input class="meme-txt" type="text" name="meme-txt" value="enter txt" data-cell-idx="0"
                         oninput="onSetLineTxt(this)">
-                </div>
-
-                <button onclick="_OnAddKeyword(this)">add</button>
-
+                        
                 <div class="emoji-box">
                 </div>
+                </div>
+
+                <button onclick="_OnAddKeyword(this)" hidden>add</button>
+
                 
                 <section class="file-manger">
-                    <button class="save-meme">save</button>
                     <div class="savedMemes">
-                        <button class="next-meme">Next saved meme</button>
-                    </div>
+
+                    <button class="save-meme file-manger-button">save</button>
+                    <button class="file-manger-button">share</button>
+                    <button class="next-meme file-manger-button">Next saved meme</button>
                     <div class="download">
-                        <a href="#" class="btn" onclick="downloadMeme(this)" download="my-img.jpg">download</a>
+                        <a href="#" class="next-meme file-manger-button" onclick="downloadMeme(this)" download="my-img.jpg">download</a>
                     </div>
-                    <button>share</button>
+                </div>
                 </section>
             </div>
         </section>
 
         <div class="upload">
-            <input id="file-input" type="file" hidden />
+            <input id="file-input" type="file" name="image" onchange="onImgInput(event)" accept="image/*" hidden />
         </div>
     </div>
 

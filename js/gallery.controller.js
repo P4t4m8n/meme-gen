@@ -3,6 +3,8 @@
 // rendering func
 function renderGallery() {
 
+    
+
     var strHtml
     var imgs = getImgs()
 
@@ -23,7 +25,7 @@ function renderSortByKeywords() {
 
     var strHtml = `<ul class="key-words"> `
 
-    strHtml += keywords.map(keyword => `<li style="font-size:${keyword.size}px" 
+    strHtml += keywords.map(keyword => `<li class="key-word" style="font-size:${keyword.size}px" 
                                         onclick="onKeyword(this,false)">${keyword.key}</li>`).join('')
 
     strHtml += `</ul>`
@@ -38,7 +40,6 @@ function renderSortByKeywords() {
 //img picker
 
 function onImgClick(imgId) {
-    console.log(imgId)
     if (imgId < 0) imgId = getRandomInt(0, 17)
 
     addNewMeme(imgId)
@@ -48,10 +49,27 @@ function onImgClick(imgId) {
 //filter
 
 function onKeyword(el, isList) {
-    console.log(el.value)
     const key = (isList) ? el.value : el.innerText
 
     if (!isList) document.querySelector('.keyword-choice').value = key
     setFilterBy(key)
     renderGallery()
+}
+
+//img upload
+
+function onImgInput(ev) {
+    loadImageFromInput(ev, renderMeme)
+    console.log('')
+}
+
+function loadImageFromInput(ev, onImageReady) {
+
+    const reader = new FileReader()
+    reader.onload = function (event) {
+        let img = new Image()
+        img.src = event.target.result
+        img.onload = () => onImageReady(img)
+    }
+    reader.readAsDataURL(ev.target.files[0])
 }
