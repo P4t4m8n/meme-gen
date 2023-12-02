@@ -35,8 +35,6 @@ function renderSortByKeywords() {
     document.querySelector('.keywords-list').innerHTML = strHtmlList
 }
 
-
-
 //img picker
 
 function onImgClick(imgId) {

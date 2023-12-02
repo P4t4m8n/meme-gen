@@ -49,8 +49,6 @@ function renderMeme() {
     renderTxtBox()
 }
 
-
-
 function renderEmojis() {
 
     const emojis = getEmojis()
@@ -64,7 +62,6 @@ function renderEmojis() {
     strHtml += `</ul>`
     document.querySelector('.emoji-box').innerHTML = strHtml
 }
-
 
 function renderTxtBox() {
     const memeLines = getCurrLine().txt
@@ -104,15 +101,16 @@ function drawText(lineInfo, x, y) {
     setLineHeight(height)
 
     gCtx.fillText(memeTxt, x, y)
+    // gCtx.strokeText(memeTxt, x, y, 400)
 
-    //need to fix border around txt
-    // gCtx.strokeRect(x, y, measures.width, height + 8)
-    // if (txtInfo.isMarked) {
-    // gCtx.fillStyle = '#ff0'
-    // gCtx.fillRect(x, y, measures.width, height)
-    //     if (txtInfo.align === 'left') gCtx.strokeRect(x, y, measures.width, height + 8)
-    //     else if (txtInfo.align === 'center') gCtx.strokeRect(x - (measures.width / 2), y - measures.width, measures.width, height + 8)
-    // }
+    if (txtInfo.isMarked) {
+        if (txtInfo.align === 'left') gCtx.strokeRect(x, y - height, measures.width, height)
+
+        else if (txtInfo.align === 'right') gCtx.strokeRect(x - measures.width , y - height, measures.width, height)
+        else gCtx.strokeRect(x - (measures.width / 2), y - height, measures.width, height)
+
+
+    }
 }
 
 function onEmojiClick(el) {
@@ -163,8 +161,6 @@ function onSetLineTxt(el) {
     setLineTxt(txt, true)
     renderMeme()
 }
-
-
 
 //Listeners
 
@@ -270,7 +266,7 @@ function keyUpHandler(ev) {
     ev.preventDefault()
     const keyPress = ev.key
 
-    if (keyPress === 'ArrowLeft' || keyPress === 'ArrowRight') return
+    if (keyPress === 'ArrowLeft' || keyPress === 'ArrowRight' || keyPress === 'Shift' || keyPress === 'Alt') return
 
     if (keyPress === 'ArrowUp') {
         onLineMove(true)
@@ -281,7 +277,7 @@ function keyUpHandler(ev) {
         return
     }
 
-    if (keyPress === 'Backspace') {
+    if (keyPress === 'Backspace' || keyPress === 'Delete') {
         remomveLetter()
     }
     else
