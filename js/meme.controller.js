@@ -104,9 +104,9 @@ function drawText(lineInfo, x, y) {
     // gCtx.strokeText(memeTxt, x, y, 400)
 
     if (txtInfo.isMarked) {
-        if (txtInfo.align === 'left') gCtx.strokeRect(x, y - height, measures.width, height)
+        if (txtInfo.align === 'left') gCtx.strokeRect(x, y - height , measures.width, height+5)
 
-        else if (txtInfo.align === 'right') gCtx.strokeRect(x - measures.width , y - height, measures.width, height)
+        else if (txtInfo.align === 'right') gCtx.strokeRect(x - measures.width, y - height, measures.width, height)
         else gCtx.strokeRect(x - (measures.width / 2), y - height, measures.width, height)
 
 
