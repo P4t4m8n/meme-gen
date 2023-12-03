@@ -51,17 +51,17 @@ function isInTxtArea(clickedPos) {
 
         if (line.align === 'left') {
             if (x >= linePos.x && x <= linePos.x + lineLength &&
-                y >= linePos.y - lineLength  && y <= linePos.y + (lineLength / 2))
+                y >= linePos.y - lineLength && y <= linePos.y + (lineLength / 2))
                 return true
         }
         else if (line.align === 'right') {
             if (x <= linePos.x && x >= linePos.x - lineLength &&
-                y >= linePos.y - lineLength  && y <= linePos.y + (lineLength / 2))
+                y >= linePos.y - lineLength && y <= linePos.y + (lineLength / 2))
                 return true
         }
         else {
             if (x >= linePos.x - (lineLength / 2) && x <= linePos.x + (lineLength / 2) &&
-                y >= linePos.y - lineHeight  && y <= linePos.y + (lineHeight / 2))
+                y >= linePos.y - lineHeight && y <= linePos.y + (lineHeight / 2))
                 return true
         }
     })
@@ -163,12 +163,7 @@ function getImgs() {
     if (gFilterBy !== '')
         var imges = gImgs.filter((img) => {
             return img.keywords.find(keyword => {
-                console.log(keyword.key)
-                console.log(keyword.img.keywords)
-                console.log(gFilterBy)
-                var test = keyword.key
-                test = test.startsWith(gFilterBy)
-                return test
+                return keyword.startsWith(gFilterBy)
             })
         })
 

@@ -162,9 +162,7 @@ canvas {
         grid-template-rows: minmax(max-content, 40%)  minmax(max-content, 60%);
         height: 100%;
     }
-    .canvas-overlay {
-
-    }
+    
     canvas {
         align-self: center;
         width: 300px;
@@ -180,9 +178,7 @@ canvas {
         width: inherit;
         margin-inline: inherit;
     }
-    .side-menu-meme {
-
-    }
+    
     .txt-boxs {
         grid-template-columns: repeat(2, 1fr);
         width: max-content;
