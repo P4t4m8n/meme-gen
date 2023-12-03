@@ -157,6 +157,9 @@ function getImgs() {
     if (gFilterBy !== '')
         var imges = gImgs.filter((img) => {
             return img.keywords.find(keyword => {
+                console.log(keyword.key)
+                console.log(keyword.img.keywords)
+                console.log(gFilterBy)
                 return keyword.key.startsWith(gFilterBy)
             })
         })
