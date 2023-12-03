@@ -314,6 +314,10 @@ function _createImges() {
     _saveItemsToStorge(STORAGE_KEY_IMG, gImgs)
 }
 
+gImgs[0].keywords.push('trump')
+gImgs[1].keywords.push('dog')
+gImgs[2].keywords.push('funny')
+
 function _createKeywords() {
     gKeywords = loadFromStorage(STORAGE_KEY_WORDS)
     if (gKeywords && gKeywords.length) return

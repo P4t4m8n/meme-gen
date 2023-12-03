@@ -49,7 +49,7 @@ function onImgClick(imgId) {
 //filter
 
 function onKeyword(el, isList) {
-    
+
     const key = (isList) ? el.value : el.innerText
 
     if (!isList) document.querySelector('.keyword-choice').value = key
@@ -60,17 +60,17 @@ function onKeyword(el, isList) {
 //img upload
 
 function onImgInput(ev) {
-    loadImageFromInput(ev, renderMeme)
-    console.log('')
-}
-
-function loadImageFromInput(ev, onImageReady) {
-
+    // loadImageFromInput(ev, renderMeme)
     const reader = new FileReader()
     reader.onload = function (event) {
         let img = new Image()
+        console.log(img)
         img.src = event.target.result
+        console.log(img.src)
         img.onload = () => onImageReady(img)
     }
-    reader.readAsDataURL(ev.target.files[0])
+    var t = reader.readAsDataURL(ev.target.files[0])
+
 }
+
+
