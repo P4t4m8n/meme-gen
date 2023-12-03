@@ -307,8 +307,8 @@ function getEvPos(ev) {
 //img download
 
 function downloadMeme(elLink) {
-    removeAllMarked()
-    renderMeme()
+    // removeAllMarked()
+    // renderMeme()
     const imgContent = gElCanvas.toDataURL()
     elLink.href = imgContent
 }
