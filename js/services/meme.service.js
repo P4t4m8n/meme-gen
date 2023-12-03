@@ -153,14 +153,16 @@ function getMemeIdxById(memeId) {
 
 function getImgs() {
     var imges = gImgs
-    
+
     if (gFilterBy !== '')
         var imges = gImgs.filter((img) => {
             return img.keywords.find(keyword => {
                 console.log(keyword.key)
                 console.log(keyword.img.keywords)
                 console.log(gFilterBy)
-                return keyword.key.startsWith(gFilterBy)
+                var test = keyword.key
+                test = test.startsWith(gFilterBy)
+                return test
             })
         })
 
