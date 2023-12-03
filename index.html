@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles\style.css">
-    <title>Document</title>
+    <title></title>
+    <link rel="icon" type="image/x-icon" href="img\favicon.ico.png">
 </head>
 
 
 <body onload="onInit()">
     <div class="main-page">
         <header>
-            <div class="logo">LOGO</div>
+            <div class="logo"><img src="img/icons8-salt-bae-48.png"></div>
             <nav>
                 <button onclick="OnChangePage(this)">Galary</button>
                 <button onclick="OnChangePage(this)">Memes</button>
@@ -36,16 +37,16 @@
 
         <section class="main-body-meme hidden">
             <div class="left">
-                <div class="img-control-panel">
-                    <section class="txt-btn">
+                <div class="img-control-panel txt-btn">
+                   
                         <div>
                             <button onclick="onAddLine()">Add Line</button>
                             <button onclick="onLineMove(true)">🡩</button>
                             <button onclick="onLineMove(false)">🡫</button>
                             <button onclick="onRemoveLine()">delete</button>
                         </div>
-                        <div>
-                            <label>
+                        <div class="its-late">
+                            <label >
                                 <span data-trans="minRate">Font Size:</span>
                                 <input type="range" min="1" max="100" value="20" title="20"
                                     oninput="this.title=this.value; onSetFontSize( +this.value)" />
@@ -73,10 +74,8 @@
                             <button class="open-font-modal-btn" ">Font</button>
                             <output></output>
                         </div>
-                    </section>
-                    <section class=" add-imoji">
-
-                    </section>
+                  
+                    
                 </div>
                 <div class="canvas-overlay">
                     <div class="canvas-container">
@@ -101,9 +100,9 @@
 
                     <button class="save-meme file-manger-button"><img src="img/save-static.png"</button>
                     <button class="file-manger-button"><img src="img/share-static.png" alt=""></button>
-                    <button class="next-meme file-manger-button">Next saved meme</button>
+                    <button class="next-meme file-manger-button"><img src="img/next-memory.png"></button>
                     <div class="download">
-                        <a href="#" class="next-meme file-manger-button" onclick="downloadMeme(this)" download="my-img.jpg"><img src="img/download-static.png" alt=""></a>
+                        <a href="javascript:delay('URL')" class="next-meme file-manger-button" onclick="downloadMeme(this)" download="my-img.jpg"><img src="img/download-static.png" alt=""></a>
                     </div>
                 </div>
                 </section>
@@ -111,8 +110,9 @@
         </section>
 
         <div class="upload">
-            <input id="file-input" type="file" name="image" onchange="onImgInput(event)" accept="image/*" hidden />
+            <input id="#" name="image" onchange="onImgInput(event)" accept="image/*" hidden />
         </div>
+        <div class="measure"></div>
     </div>
 
     <script src="js/services/storage.service.js"></script>

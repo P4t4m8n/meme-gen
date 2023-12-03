@@ -5,6 +5,8 @@ var gCtx = gElCanvas.getContext('2d')
 var gCanavsCenter = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
 var gMousePos
 var gTxtBoxFoucs = false
+var gIsDownload = false
+var test
 
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
@@ -28,7 +30,6 @@ function renderMeme() {
     }
     const imgUrl = getCurrImg().url
     var imgContent = getMeme().lines
-    console.log(imgContent)
     var imgObj = new Image()
 
     imgObj.onload = function () {
@@ -47,7 +48,6 @@ function renderMeme() {
     imgObj.src = imgUrl
     resizeCanvas()
     renderTxtBox()
-    // if (gElCanvas.width < 400) resizeVectors()
 }
 
 function renderEmojis() {
@@ -82,7 +82,7 @@ function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
     gElCanvas.width = elContainer.offsetWidth
     gElCanvas.height = elContainer.offsetHeight
-    
+
 
 }
 
@@ -105,16 +105,15 @@ function drawText(lineInfo, x, y) {
     setLineHeight(height)
 
     gCtx.fillText(memeTxt, x, y)
-    // gCtx.strokeText(memeTxt, x, y, 400)
-    // gCtx.strokeStyle = 'white'
-    // if (txtInfo.isMarked) {
-    //     if (txtInfo.align === 'left') gCtx.strokeRect(x, y - height , measures.width, height)
+    gCtx.strokeStyle = 'white'
+    if (txtInfo.isMarked) {
+        if (txtInfo.align === 'left') gCtx.strokeRect(x, y - height, measures.width, height)
 
-    //     else if (txtInfo.align === 'right') gCtx.strokeRect(x - measures.width, y - height , measures.width, height+5)
-    //     else gCtx.strokeRect(x - (measures.width / 2), y - height, measures.width, height)
+        else if (txtInfo.align === 'right') gCtx.strokeRect(x - measures.width, y - height, measures.width, height + 5)
+        else gCtx.strokeRect(x - (measures.width / 2), y - height, measures.width, height)
 
 
-    // }
+    }
 }
 
 function onEmojiClick(el) {
@@ -311,13 +310,22 @@ function getEvPos(ev) {
 //img download
 
 function downloadMeme(elLink) {
+    console.log(elLink)
     // removeAllMarked()
     // renderMeme()
-    const imgContent = gElCanvas.toDataURL()
-    elLink.href = imgContent
+
+
+    // const imgContent = gElCanvas.toDataURL()
+    // elLink.href = imgContent
+    console.log(elLink)
 }
 
-
+function delay(x) {
+    setTimeout(function () {
+        const imgContent = gElCanvas.toDataURL()
+        x = imgContent
+    }, 2000);
+}
 
 //general  func
 

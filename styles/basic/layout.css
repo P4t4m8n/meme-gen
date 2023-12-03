@@ -22,20 +22,28 @@ nav {
 
 
 @media only screen and (max-width:700px) {
-    .galary .container  {
+    body {
+        overflow: auto !important;
+        height: fit-content;
+    }
+
+    .galary .container {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .key-word {
         display: none !important;
     }
 
-    .key-word:first-child {
+    /* .key-word:first-child {
         display: block !important;
-    }
-    .key-word::after {
+    } */
+
+    /* .key-word::after {
         content: "more..";
         font-size: 1rem;
-        display:inline;
+        display: inline;
         margin-inline: 1rem;
-    }
+    } */
+
 }

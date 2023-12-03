@@ -11,6 +11,7 @@ var gCurrMemeIdx = 0
 var gCurrLine = 0
 var gFilterBy = ''
 var gMeme
+var gUploadId = 18
 
 var gKeywords = []
 var gDeletedLines = []
@@ -123,6 +124,15 @@ function addKeyword(keyword) {
 
 }
 
+function addUploadImg(imgUrl, test) {
+    var idx = gImgs.push(_createImg(imgUrl)) - 1
+    _saveItemsToStorge(STORAGE_KEY_IMG, gImgs)
+    console.log(gUploadId)
+    gUploadId++
+    console.log(gUploadId)
+    return gImgs[idx].id
+}
+
 function removeLine() {
     const deletedLine = gMeme.lines.splice(gCurrLine, 1)
     gDeletedLines.push(deletedLine)
@@ -205,7 +215,7 @@ function setMeme() {
 }
 
 function setCurrMeme(isUp = true) {
-
+    if (!gMemes) return
     if (isUp) gCurrMemeIdx++
     else gCurrMemeIdx--
 
@@ -318,6 +328,14 @@ function _createImges() {
 
     }
     _saveItemsToStorge(STORAGE_KEY_IMG, gImgs)
+}
+
+function _createImg(imgUrl) {
+    return {
+        id: gUploadId,
+        url: imgUrl,
+        keywords: []
+    }
 }
 
 gImgs[0].keywords.push('trump')

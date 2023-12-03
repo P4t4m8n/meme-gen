@@ -3,8 +3,6 @@
 // rendering func
 function renderGallery() {
 
-
-
     var strHtml
     var imgs = getImgs()
 
@@ -28,14 +26,44 @@ function renderSortByKeywords() {
     strHtml += keywords.map(keyword => `<li class="key-word" style="font-size:${keyword.size}px"  
                                         onclick="onKeyword(this,false)">${keyword.key}</li>`).join('')
 
-    strHtml += `</ul>`
+    strHtml += `<li class="small-modal hidden">...More</li></ul>`
 
     var strHtmlList = `<option value="All"></option>`
     strHtmlList += keywords.map(keywords => `<option value="${keywords.key}">`).join('')
 
     document.querySelector('.keyword-con').innerHTML = strHtml
     document.querySelector('.keywords-list').innerHTML = strHtmlList
+
+    // if (window.innerWidth <= 700) {
+    //     var elFilter = document.querySelector('.small-modal')
+    //     elFilter.classList.remove('hidden')
+    //     elFilter.addEventListener('touchstart', openFilterModal)
+    // }
 }
+
+function openFilterModal() {
+    var elFilter = document.querySelector('.small-modal')
+
+    var keywords = getKeywords()
+
+    var strHtml = `<ul class="key-words"> `
+
+    strHtml += keywords.map(keyword => `<li class="key-word-small" style="font-size:${keyword.size}px"  
+                                        onclick="onKeyword(this,false)">${keyword.key}</li>`).join('')
+
+    strHtml += `</ul>`
+
+    elFilter.innerHTML = strHtml
+
+    var elFilter = document.querySelector('.key-word-small')
+    elFilter.addEventListener('touchend', () => {
+        var elFilter = document.querySelector('.small-modal')
+        elFilter.classList.add('hidden')
+    })
+
+}
+
+
 
 //img picker
 
@@ -59,17 +87,23 @@ function onKeyword(el, isList) {
 //img upload
 
 function onImgInput(ev) {
-    // loadImageFromInput(ev, renderMeme)
+    debugger
+    loadImageFromInput(ev, addNewMeme)
+}
+
+function loadImageFromInput(ev, onImageReady) {
     const reader = new FileReader()
     reader.onload = function (event) {
         let img = new Image()
-        console.log(img)
         img.src = event.target.result
-        console.log(img.src)
-        img.onload = () => onImageReady(img)
+        img.onload = () => {
+            var elMeasure = document.querySelector('.measure')
+            elMeasure.appendChild(img)
+            var imgId = addUploadImg(img.src)
+            onImageReady(imgId)
+            changePage('Memes')
+        }
     }
-    var t = reader.readAsDataURL(ev.target.files[0])
-
+    reader.readAsDataURL(ev.target.files[0])
 }
-
 
