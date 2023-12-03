@@ -51,17 +51,17 @@ function isInTxtArea(clickedPos) {
 
         if (line.align === 'left') {
             if (x >= linePos.x && x <= linePos.x + lineLength &&
-                y >= linePos.y - (lineLength / 2) && y <= linePos.y + (lineLength / 2))
+                y >= linePos.y - lineLength  && y <= linePos.y + (lineLength / 2))
                 return true
         }
         else if (line.align === 'right') {
             if (x <= linePos.x && x >= linePos.x - lineLength &&
-                y >= linePos.y - (lineLength / 2) && y <= linePos.y + (lineLength / 2))
+                y >= linePos.y - lineLength  && y <= linePos.y + (lineLength / 2))
                 return true
         }
         else {
             if (x >= linePos.x - (lineLength / 2) && x <= linePos.x + (lineLength / 2) &&
-                y >= linePos.y - (lineHeight / 2) && y <= linePos.y + (lineHeight / 2))
+                y >= linePos.y - lineHeight  && y <= linePos.y + (lineHeight / 2))
                 return true
         }
     })
@@ -94,8 +94,7 @@ function addNewMeme(imgId) {
 
 function addLine(pos = { x: 150, y: 75 }, txt = 'enter meme', size = 48, color = 'red', txtWidth = 5, txtHeight = 5, isMarked = true, isClicked = false, align = 'center', font = 'impact') {
     if (gMeme.lines.length > 0) setIsMarked(false)
-
-    gCurrLine = gMeme.lines.push({ pos, txt, size, color, txtWidth: txtWidth, txtHeight, isMarked, isClicked, align, }) - 1
+    gCurrLine = gMeme.lines.push({ pos, txt, size, color, txtWidth, txtHeight, isMarked, isClicked, align, font }) - 1
 }
 
 function remomveLetter(idx = gCurrLine) {
@@ -134,6 +133,13 @@ function removeLine() {
 
 function removeAllMarked() {
     gMeme.lines.forEach(line => line.isMarked = false)
+}
+
+function resizeVectors() {
+    gMeme.lines.forEach((line) => {
+        line.pos.x = line.pos.x - (line.pos.x / 25)
+        line.pos.y = line.pos.y - (line.pos.y / 25)
+    })
 }
 
 //getters

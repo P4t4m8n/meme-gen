@@ -28,7 +28,7 @@ function renderMeme() {
     }
     const imgUrl = getCurrImg().url
     var imgContent = getMeme().lines
-
+    console.log(imgContent)
     var imgObj = new Image()
 
     imgObj.onload = function () {
@@ -47,6 +47,7 @@ function renderMeme() {
     imgObj.src = imgUrl
     resizeCanvas()
     renderTxtBox()
+    // if (gElCanvas.width < 400) resizeVectors()
 }
 
 function renderEmojis() {
@@ -77,9 +78,12 @@ function renderFontsList() {
 }
 
 function resizeCanvas() {
+
     const elContainer = document.querySelector('.canvas-container')
     gElCanvas.width = elContainer.offsetWidth
     gElCanvas.height = elContainer.offsetHeight
+    
+
 }
 
 //line creator
@@ -102,15 +106,15 @@ function drawText(lineInfo, x, y) {
 
     gCtx.fillText(memeTxt, x, y)
     // gCtx.strokeText(memeTxt, x, y, 400)
+    // gCtx.strokeStyle = 'white'
+    // if (txtInfo.isMarked) {
+    //     if (txtInfo.align === 'left') gCtx.strokeRect(x, y - height , measures.width, height)
 
-    if (txtInfo.isMarked) {
-        if (txtInfo.align === 'left') gCtx.strokeRect(x, y - height , measures.width, height+5)
-
-        else if (txtInfo.align === 'right') gCtx.strokeRect(x - measures.width, y - height, measures.width, height)
-        else gCtx.strokeRect(x - (measures.width / 2), y - height, measures.width, height)
+    //     else if (txtInfo.align === 'right') gCtx.strokeRect(x - measures.width, y - height , measures.width, height+5)
+    //     else gCtx.strokeRect(x - (measures.width / 2), y - height, measures.width, height)
 
 
-    }
+    // }
 }
 
 function onEmojiClick(el) {
@@ -122,7 +126,7 @@ function onEmojiClick(el) {
 }
 
 function onAddLine() {
-    addLine(gCanavsCenter)
+    addLine()
     renderMeme()
 }
 
@@ -241,7 +245,7 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    // console.log(pos)
+    console.log(pos)
     if (!isInTxtArea(pos)) return
     gMousePos = pos
     renderMeme()
