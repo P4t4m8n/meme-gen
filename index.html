@@ -102,7 +102,7 @@
                     <button class="file-manger-button"><img src="img/share-static.png" alt=""></button>
                     <button class="next-meme file-manger-button"><img src="img/next-memory.png"></button>
                     <div class="download">
-                        <a href="javascript:delay('URL')" class="next-meme file-manger-button" onclick="downloadMeme(this)" download="my-img.jpg"><img src="img/download-static.png" alt=""></a>
+                        <a href="#" class="next-meme file-manger-button" onclick="downloadMeme(this)" download="my-img.jpg"><img src="img/download-static.png" alt=""></a>
                     </div>
                 </div>
                 </section>
@@ -110,9 +110,7 @@
         </section>
 
         <div class="upload">
-            <input id="#" name="image" onchange="onImgInput(event)" accept="image/*" hidden />
-        </div>
-        <div class="measure"></div>
+            <input type="file" id="file-input" name="image" onchange="onImgInput(event)" accept="image/*" hidden />
     </div>
 
     <script src="js/services/storage.service.js"></script>

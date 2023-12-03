@@ -87,7 +87,6 @@ function onKeyword(el, isList) {
 //img upload
 
 function onImgInput(ev) {
-    debugger
     loadImageFromInput(ev, addNewMeme)
 }
 
@@ -97,8 +96,7 @@ function loadImageFromInput(ev, onImageReady) {
         let img = new Image()
         img.src = event.target.result
         img.onload = () => {
-            var elMeasure = document.querySelector('.measure')
-            elMeasure.appendChild(img)
+                   
             var imgId = addUploadImg(img.src)
             onImageReady(imgId)
             changePage('Memes')
