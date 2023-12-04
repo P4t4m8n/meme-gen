@@ -136,8 +136,8 @@ function onLineMove(isUp) {
     renderMeme()
 }
 
-function onSetAlign(btn) {
-    const align = btn.innerText
+function onSetAlign(align) {
+    // const align = btn.innerText
     setTxtAlign(align)
     renderMeme()
 }
