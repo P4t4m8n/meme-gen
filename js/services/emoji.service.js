@@ -13,7 +13,6 @@ const gEMOJIS = ["✌", "😂", "😝", "😁", "😱", "👉", "🙌", "🍻", 
 var gEmojiPage = 0
 
 function getEmojis() {
-
     var tenEmojis = gEMOJIS.slice(gEmojiPage, gEmojiPage + 5)
     gEmojiPage++
     if (gEmojiPage > gEMOJIS.length - 1) gEmojiPage = 0
