@@ -80,7 +80,8 @@ function onKeyword(el, isList) {
 
     const key = (isList) ? el.value : el.innerText
     if (!isList) document.querySelector('.keyword-choice').value = key
-    setFilterBy(key)
+
+    setFilterBy(key.toLowerCase())
     renderGallery()
 }
 
